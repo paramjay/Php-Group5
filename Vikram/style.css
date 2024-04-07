@@ -84,11 +84,34 @@ p {
   font-size: 1.2em;
   color: var(--gray-color-500);
 }
+.table-div{
+  padding-left: 50px;
+  padding-right: 50px;
+}
 #login-banner{
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(11\).jpg');
   background-size: cover;
   background-position: center;
   height: 650px;
+}
+
+#dashboard-banner{
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url('images/car\ \(3\).jpg');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+}
+#checkout-banner{
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(1\).jpg');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+}
+#AddProduct-banner{
+  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(12\).jpg');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
 }
 #signup-banner{
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(15\).jpg');

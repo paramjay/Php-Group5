@@ -123,7 +123,7 @@
                   <a class="nav-link me-4" href="checkoutForm.php">Checkout</a>
                 </li>
                 <li class="nav-item">
-                  <a class="nav-link me-4" href="adminDashboard.php">Dashboard</a>
+                  <a class="nav-link me-4" href="dashboard.php">Dashboard</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link me-4" href="addProduct.php">Add Product</a>
