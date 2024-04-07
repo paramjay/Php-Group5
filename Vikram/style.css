@@ -89,11 +89,37 @@ p {
   padding-right: 50px;
 }
 #login-banner{
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(11\).jpg');
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.2)), url('images/car\ \(5\).jpg');
   background-size: cover;
   background-position: center;
   height: 650px;
 }
+
+#cart-banner{
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.5)), url("images/car (13).jpg");
+  background-size: cover;
+  background-position: center;
+  height: 400px;
+}
+.cart-image{
+  background-size: cover;
+  background-position: center;
+  width: 70%;
+  height: auto;
+}
+#product-image{
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: auto;
+}
+#productDetails-banner{
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.5)), url('images/car\ \(6\).jpg');
+  background-size: cover;
+  background-position: center;
+  height: 350px;
+}
+
 
 #dashboard-banner{
   background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.4)), url('images/car\ \(3\).jpg');
@@ -102,25 +128,25 @@ p {
   height: 350px;
 }
 #checkout-banner{
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(1\).jpg');
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.4)), url('images/car\ \(1\).jpg');
   background-size: cover;
   background-position: center;
   height: 350px;
 }
 #AddProduct-banner{
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(12\).jpg');
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.7)), url('images/car\ \(12\).jpg');
   background-size: cover;
   background-position: center;
   height: 350px;
 }
 #signup-banner{
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.1)), url('images/car\ \(15\).jpg');
+  background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.1)), url('images/car\ \(15\).jpg');
   background-size: cover;
   background-position: center;
   height: 800px;
 }
 #product-banner{
-  background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/car\ \(9\).jpg');
+  background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.1)), url('images/car\ \(9\).jpg');
   background-size: cover;
   background-position: center;
   height: 400px;
@@ -135,13 +161,13 @@ p {
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/car\ \(11\).jpg');
   background-size: cover;
   background-position: center;
-  height: 600px;
+  height: 500px;
 }
 .header-space{  
   min-height: 100px;
 }
 .empty-gap{
-min-height: 500px;
+min-height: 400px;
 }
 #car-logo{
   width: auto;
@@ -855,7 +881,7 @@ h3.cart-title {
     right: 0;
 }
 .review-content .quotation svg.quote {
-    color: var(--light-blue-color);
+    color: rgba(var(--bs-primary-rgb),var(--bs-text-opacity))!important;
 }
 
 @media only screen and (max-width: 767px) {
