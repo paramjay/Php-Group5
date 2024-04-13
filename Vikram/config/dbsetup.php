@@ -1,0 +1,183 @@
+<?php
+$servername = "localhost";
+$username = "root";
+$password = "";
+
+try {
+    $conn = new PDO("mysql:host=$servername", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Create database
+    $sql = "CREATE DATABASE IF NOT EXISTS db_vikram";
+    $conn->exec($sql);
+    echo "Database created successfully<br>";
+
+    // Connect to the database
+    $conn = new PDO("mysql:host=$servername;dbname=db_vikram", $username, $password);
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    // Create tbl_users table
+    $sql = "CREATE TABLE IF NOT EXISTS tbl_users (
+        user_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+        user_name VARCHAR(50) NOT NULL,
+        user_email VARCHAR(50) NOT NULL,
+        user_password VARCHAR(50) NOT NULL,
+        user_type ENUM('Admin', 'Buyer') NOT NULL,
+        user_address VARCHAR(255),
+        user_postal_code VARCHAR(20),
+        user_country VARCHAR(100)
+    )";
+    $conn->exec($sql);
+    echo "Table tbl_users created successfully<br>";
+
+    // Create tbl_cars table
+    $sql = "CREATE TABLE IF NOT EXISTS tbl_cars (
+        car_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+        car_brand VARCHAR(100) NOT NULL,
+        car_name VARCHAR(100) NOT NULL,
+        car_model VARCHAR(100) NOT NULL,
+        car_type ENUM('petrol', 'diesel','electric') NOT NULL,
+        car_price DECIMAL(10, 2) NOT NULL,
+        car_sale_price DECIMAL(10, 2),
+        car_engine VARCHAR(50),
+        car_body_style VARCHAR(50),
+        car_capacity INT(11),
+        car_mileage DECIMAL(5, 2),
+        car_description TEXT,
+        car_mfg_year INT(4),
+        car_odometer DECIMAL(10, 2),
+        car_color VARCHAR(50),
+        car_image VARCHAR(255),
+        car_transmission VARCHAR(50),
+        car_driven_type VARCHAR(50),
+        car_torque VARCHAR(100),
+        car_power VARCHAR(100),
+        car_safety VARCHAR(50)
+    )";
+    $conn->exec($sql);
+    echo "Table tbl_cars created successfully<br>";
+
+    // Create tbl_invoice table
+    $sql = "CREATE TABLE IF NOT EXISTS tbl_invoice (
+        invoice_id INT(11) AUTO_INCREMENT PRIMARY KEY,
+        user_id INT(11),
+        invoice_payment_mode VARCHAR(50),
+        invoice_tax DECIMAL(10, 2),
+        invoice_total DECIMAL(10, 2),
+        invoice_date DATE,
+        FOREIGN KEY (user_id) REFERENCES tbl_users(user_id)
+    )";
+    $conn->exec($sql);
+    echo "Table tbl_invoice created successfully<br>";
+
+    // Create tbl_cart table
+    $sql = "CREATE TABLE IF NOT EXISTS tbl_cart (
+        invoice_id INT(11),
+        car_id INT(11),
+        car_quantity INT(11),
+        FOREIGN KEY (invoice_id) REFERENCES tbl_invoice(invoice_id),
+        FOREIGN KEY (car_id) REFERENCES tbl_cars(car_id)
+    )";
+    $conn->exec($sql);
+    echo "Table tbl_cart created successfully<br>";
+
+    // Generate sample data for tbl_users
+    $stmt = $conn->prepare("INSERT INTO tbl_users (user_name, user_email, user_password, user_type, user_address, user_postal_code, user_country)
+    VALUES (:user_name, :user_email, :user_password, :user_type, :user_address, :user_postal_code, :user_country)");
+    $stmt->bindParam(':user_name', $user_name);
+    $stmt->bindParam(':user_email', $user_email);
+    $stmt->bindParam(':user_password', $user_password);
+    $stmt->bindParam(':user_type', $user_type);
+    $stmt->bindParam(':user_address', $user_address);
+    $stmt->bindParam(':user_postal_code', $user_postal_code);
+    $stmt->bindParam(':user_country', $user_country);
+
+    $usersData = [
+        ['John Doe', 'john.doe@example.com', 'password123', 'Admin', '123 Main St', '12345', 'USA'],
+        ['Jane Smith', 'jane.smith@example.com', 'pass456', 'Buyer', '456 Elm St', '54321', 'Canada']
+    ];
+
+    foreach ($usersData as $userData) {
+        list($user_name, $user_email, $user_password, $user_type, $user_address, $user_postal_code, $user_country) = $userData;
+        $stmt->execute();
+    }
+    echo "Sample data inserted into tbl_users successfully<br>";
+
+    // Generate sample data for tbl_cars
+    $stmt = $conn->prepare("INSERT INTO tbl_cars (car_brand, car_name, car_model, car_type, car_price, car_sale_price, car_engine, car_body_style, car_capacity, car_mileage, car_description, car_mfg_year, car_odometer, car_color, car_image, car_transmission, car_driven_type, car_torque, car_power, car_safety)
+    VALUES (:car_brand, :car_name, :car_model, :car_type, :car_price, :car_sale_price, :car_engine, :car_body_style, :car_capacity, :car_mileage, :car_description, :car_mfg_year, :car_odometer, :car_color, :car_image, :car_transmission, :car_driven_type, :car_torque, :car_power, :car_safety)");
+    $stmt->bindParam(':car_brand', $car_brand);
+    $stmt->bindParam(':car_name', $car_name);
+    $stmt->bindParam(':car_model', $car_model);
+    $stmt->bindParam(':car_type', $car_type);
+    $stmt->bindParam(':car_price', $car_price);
+    $stmt->bindParam(':car_sale_price', $car_sale_price);
+    $stmt->bindParam(':car_engine', $car_engine);
+    $stmt->bindParam(':car_body_style', $car_body_style);
+    $stmt->bindParam(':car_capacity', $car_capacity);
+    $stmt->bindParam(':car_mileage', $car_mileage);
+    $stmt->bindParam(':car_description', $car_description);
+    $stmt->bindParam(':car_mfg_year', $car_mfg_year);
+    $stmt->bindParam(':car_odometer', $car_odometer);
+    $stmt->bindParam(':car_color', $car_color);
+    $stmt->bindParam(':car_image', $car_image);
+    $stmt->bindParam(':car_transmission', $car_transmission);
+    $stmt->bindParam(':car_driven_type', $car_driven_type);
+    $stmt->bindParam(':car_torque', $car_torque);
+    $stmt->bindParam(':car_power', $car_power);
+    $stmt->bindParam(':car_safety', $car_safety);
+
+    $carsData = [
+        ['Toyota', 'Camry', '2022', 'petrol', 25000, 23000, '2.5L V6', 'Sedan', 5, 30.5, 'A comfortable sedan for daily use.', 2022, 5000, 'Black', 'toyota-camry.jpg', 'Automatic', 'FWD', '200 lb-ft', '200 hp', 'Advanced safety features'],
+        ['Honda', 'Civic', '2023', 'petrol', 22000, 21000, '2.0L I4', 'Hatchback', 5, 35.5, 'A stylish hatchback with great fuel efficiency.', 2023, 3000, 'White', 'honda-civic.jpg', 'CVT', 'FWD', '180 lb-ft', '180 hp', 'Multiple airbags']
+    ];
+
+    foreach ($carsData as $carData) {
+        list($car_brand, $car_name, $car_model, $car_type, $car_price, $car_sale_price, $car_engine, $car_body_style, $car_capacity, $car_mileage, $car_description, $car_mfg_year, $car_odometer, $car_color, $car_image, $car_transmission, $car_driven_type, $car_torque, $car_power, $car_safety) = $carData;
+        $stmt->execute();
+    }
+    echo "Sample data inserted into tbl_cars successfully<br>";
+
+    // Generate sample data for tbl_invoice
+    $stmt = $conn->prepare("INSERT INTO tbl_invoice (user_id, invoice_payment_mode, invoice_tax, invoice_total, invoice_date)
+    VALUES (:user_id, :invoice_payment_mode, :invoice_tax, :invoice_total, :invoice_date)");
+    $stmt->bindParam(':user_id', $user_id);
+    $stmt->bindParam(':invoice_payment_mode', $invoice_payment_mode);
+    $stmt->bindParam(':invoice_tax', $invoice_tax);
+    $stmt->bindParam(':invoice_total', $invoice_total);
+    $stmt->bindParam(':invoice_date', $invoice_date);
+
+    $invoiceData = [
+        [1, 'Credit Card', 150, 2650, '2024-04-12'],
+        [2, 'PayPal', 120, 2120, '2024-04-10']
+    ];
+
+    foreach ($invoiceData as $data) {
+        list($user_id, $invoice_payment_mode, $invoice_tax, $invoice_total, $invoice_date) = $data;
+        $stmt->execute();
+    }
+    echo "Sample data inserted into tbl_invoice successfully<br>";
+
+    // Generate sample data for tbl_cart
+    $stmt = $conn->prepare("INSERT INTO tbl_cart (invoice_id, car_id, car_quantity)
+    VALUES (:invoice_id, :car_id, :car_quantity)");
+    $stmt->bindParam(':invoice_id', $invoice_id);
+    $stmt->bindParam(':car_id', $car_id);
+    $stmt->bindParam(':car_quantity', $car_quantity);
+
+    $cartData = [
+        [1, 1, 2],
+        [2, 2, 1]
+    ];
+
+    foreach ($cartData as $data) {
+        list($invoice_id, $car_id, $car_quantity) = $data;
+        $stmt->execute();
+    }
+    echo "Sample data inserted into tbl_cart successfully<br>";
+} catch (PDOException $e) {
+    echo "Connection failed: " . $e->getMessage();
+}
+
+$conn = null;
+?>
