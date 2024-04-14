@@ -1,6 +1,8 @@
 <?php
  require('config/dbinit.php');
-
+ require('function.php');
+ $user_data = check_login($conn);
+ 
 // Check if car ID is passed in the URL
 if (isset($_GET['car_id'])) {
     // Assuming you have a PDO connection established
@@ -41,7 +43,7 @@ if (isset($_GET['car_id'])) {
     <div class="row m-4">
         <div class="col-md-4">
             <h4 class=""><?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?></h4>
-            <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="<?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?>">
+            <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="Car's image">
         </div>
         <div class="col-md-8 p-4">
             <table class="table">
