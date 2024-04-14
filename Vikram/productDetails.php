@@ -39,11 +39,11 @@ if (isset($_GET['car_id'])) {
 <div class="row mb-5 m-5">
     <div class="card card-body col-md-10">
     <div class="row m-4">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <h4 class=""><?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?></h4>
             <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="<?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?>">
         </div>
-        <div class="col-md-8 p-4">
+        <div class="col-md-6 p-4">
             <table class="table">
                 <tbody>
                     <tr>
@@ -78,10 +78,6 @@ if (isset($_GET['car_id'])) {
                         <td><?php echo $car['car_color']; ?></td>
                     </tr>
                     <tr>
-                        <th scope="row">Mileage:</th>
-                        <td><?php echo $car['car_mileage']; ?></td>
-                    </tr>
-                    <tr>
                         <th scope="row">Seating Capacity:</th>
                         <td><?php echo $car['car_capacity']; ?></td>
                     </tr>
@@ -102,10 +98,13 @@ if (isset($_GET['car_id'])) {
 
     <div class="col-md-2 p-3">
         <h5 class="text-success">In Stocks</h5>
+        <form action="#" id="add_buy_form" method="post">
         <label for="quantity" class="fs-6 m-1">Quantity:-</label>
         <input type="number" class="form-control m-2" name="quantity" id="quantity" value="1">
-        <button class="btn btn-full btn-primary m-2" type="button"> Add to Cart</button>
-        <button class="btn btn-full btn-warning m-2" type="button"> Buy </button>
+        <input type="hidden" class="form-control m-2" name="car_id" id="car_id" value="<?php echo $car['car_id']; ?>">
+        <button class="btn btn-full btn-primary m-2" type="button" onclick="addToCart()"> Add to Cart</button>
+        <button class="btn btn-full btn-warning m-2" type="button" onclick="Buy()"> Buy </button>
+        </form>
         <div class="row m-2">
             <table class="float-start">
                 <tbody>
@@ -192,13 +191,17 @@ if (isset($_GET['car_id'])) {
 
 <?php require('layouts/footer.php'); ?>
 
+<script type="text/javascript" src="js/car_details.js"></script>
+
 </body>
 </html>
 <?php
     } else {
         echo "<p>Car not found!</p>";
     }
-} else {
+} 
+
+else {
     echo "<p>Car ID not provided in the URL.</p>";
 }
 ?>
