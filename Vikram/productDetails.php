@@ -37,38 +37,69 @@ if (isset($_GET['car_id'])) {
 </section>
 
 <div class="row mb-5 m-5">
-
     <div class="card card-body col-md-10">
-        <div class="row m-4">
-            <div class="col-md-6 p-1">
-                <h4 class="">Car Image</h4>
-                <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="Car's image">
-            </div>
-            <div class="col-md-6 p-4">
-                <h3 class=""><?php echo $car['car_name']; ?></h3>
-                <h5 class=""><?php echo $car['car_brand']; ?></h5>
-                <div class="d-flex justify-content-between">
-                    <div>
-                        <span class="text-decoration-line-through">$<?php echo $car['car_price']; ?></span>
-                        <span class="fs-5">$<?php echo $car['car_sale_price']; ?></span>
-                    </div>
-                    <p ><?php echo $car['car_type']; ?></p>
-                    <p ><?php echo $car['car_model']; ?></p>
-                    <p ><?php echo $car['car_body_style']; ?></p>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <p ><?php echo $car['car_color']; ?></p>
-                    <p ><?php echo $car['car_mileage']; ?></p>
-                    <p ><?php echo $car['car_capacity']; ?> seater</p>
-                    <p >Year-<?php echo $car['car_mfg_year']; ?></p>
-                </div>
-
-                <p ><?php echo $car['car_odometer']; ?></p>
-                <p class="text-justify"><?php echo $car['car_description']; ?></p>
-
-            </div>
+    <div class="row m-4">
+        <div class="col-md-4">
+            <h4 class=""><?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?></h4>
+            <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="Car's image">
+        </div>
+        <div class="col-md-8 p-4">
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Car Name:</th>
+                        <td><?php echo $car['car_name']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Brand:</th>
+                        <td><?php echo $car['car_brand']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Price:</th>
+                        <td>
+                            <span class="text-decoration-line-through">$<?php echo $car['car_price']; ?></span>
+                            <span class="fs-5">$<?php echo $car['car_sale_price']; ?></span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Fuel:</th>
+                        <td><?php echo $car['car_type']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Model:</th>
+                        <td><?php echo $car['car_model']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Body Style:</th>
+                        <td><?php echo $car['car_body_style']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Color:</th>
+                        <td><?php echo $car['car_color']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Mileage:</th>
+                        <td><?php echo $car['car_mileage']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Seating Capacity:</th>
+                        <td><?php echo $car['car_capacity']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Year:</th>
+                        <td><?php echo $car['car_mfg_year']; ?></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Odometer:</th>
+                        <td><?php echo $car['car_odometer']; ?></td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="text-justify">Description: <?php echo $car['car_description']; ?></p>
         </div>
     </div>
+</div>
+
     <div class="col-md-2 p-3">
         <h5 class="text-success">In Stocks</h5>
         <label for="quantity" class="fs-6 m-1">Quantity:-</label>
