@@ -1,24 +1,26 @@
 <?php
 
-function check_login($con)
+function check_login($pdo)
 {
+    session_start();
 
-	if(isset($_SESSION['user_id']))
-	{
+    if (isset($_SESSION['user_id'])) {
+        $id = $_SESSION['user_id'];
 
-		$id = $_SESSION['user_id'];
-		$sql = "select * from users where user_id = '$id' limit 1";
+        $sql = "SELECT * FROM tbl_users WHERE user_id = :id LIMIT 1";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['id' => $id]);
 
-		$result = mysqli_query($con,$sql);
-		if($result && mysqli_num_rows($result) > 0)
-		{
+        // Check if there's a result
+        if ($stmt && $stmt->rowCount() > 0) {
+            // Fetch the user data
+            $user_data = $stmt->fetch();
+            return $user_data;
+        }
+    }
 
-			$user_data = mysqli_fetch_assoc($result);
-			return $user_data;
-		}
-	}
-
-	header("Location: login.php");
-	die;
-
+    header("Location: login.php");
+    die;
 }
+
+?>
