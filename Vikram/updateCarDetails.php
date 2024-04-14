@@ -16,17 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $name = validateInput($_POST['car_name']);
     $brand = validateInput($_POST['car_brand']);
     $price = validateInput($_POST['car_price']);
-    $sale_price = validateInput($_POST['car_sale_price']);
-    $engine = validateInput($_POST['car_engine']);
-    $style = validateInput($_POST['car_body_style']);
-    $capacity = validateInput($_POST['car_capacity']);
-    $mileage = validateInput($_POST['car_mileage']);
-    $model = validateInput($_POST['car_model']);
-    $mfg_year = validateInput($_POST['car_mfg_year']);
-    $description = $_POST['car_description'];
-    $odometer = validateInput($_POST['car_odometer']);
-    $color = validateInput($_POST['car_color']);
-    $image = $_POST['car_image'];
+    $sale_price = validateInput($_POST['sale_price']);
+    $engine = validateInput($_POST['engine']);
+    $style = validateInput($_POST['style']);
+    $capacity = validateInput($_POST['capacity']);
+    $mileage = $_POST['mileage'];
+    $model = validateInput($_POST['model']);
+    $mfg_year = validateInput($_POST['mfg_year']);
+    $description = $_POST['description'];
+    $odometer = validateInput($_POST['odometer']);
+    $color = validateInput($_POST['color']);
+    $image = $_POST['image'];
     
     
    
@@ -125,7 +125,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($id!=0){
             $stmt = $conn->prepare("SELECT * FROM tbl_cars WHERE car_id='".$id."'");
             $stmt->execute();
-            $shoe = $stmt->fetchAll();
+            $car = $stmt->fetchAll();
         }
     }
   
@@ -137,7 +137,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt = $conn->prepare($sql);
     $stmt->execute();
 
-    $shoe = $stmt->fetchAll();
+    $car = $stmt->fetchAll();
     }
   }
 ?>
@@ -147,13 +147,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
 <title>Add/Edit Product</title>
 <?php
-      require('../layouts/commonHead.php');
+      require('layouts/commonHead.php');
     ?>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     <?php
-      require('../layouts/header.php');
+      require('layouts/header.php');
     ?>
+    <br><br><br>
     <main>
         <h2>Add/Edit Car Details</h2>
         <div class="mt-4 mb-4">
@@ -219,7 +220,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Enter the sale price of Car..."
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['sale_price'].'" ';
+                                    echo 'value="'.$car[0]['car_sale_price'].'" ';
                                 }
                             ?>>
                         </div>
@@ -232,7 +233,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="engine" placeholder="Enter the engine of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['engine'].'" ';
+                                    echo 'value="'.$car[0]['car_engine'].'" ';
                                 }
                             ?>
                             >
@@ -240,12 +241,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="row g-3">
                         <div class="col-sm-6">
-                            <label for="name" class="form-label">Style</label>
+                            <label for="style" class="form-label">Style</label>
                             <input type="text" class="form-control" id="style" 
                             name="style" placeholder="Enter the style of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['style'].'" ';
+                                    echo 'value="'.$car[0]['car_body_style'].'" ';
                                 }
                             ?>
                             >
@@ -253,12 +254,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
                         <div class="row g-3">
                         <div class="col-sm-6">
-                            <label for="name" class="form-label">Capacity</label>
+                            <label for="capacity" class="form-label">Capacity</label>
                             <input type="text" class="form-control" id="capacity" 
                             name="capacity" placeholder="Enter the capacity of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['capacity'].'" ';
+                                    echo 'value="'.$car[0]['car_capacity'].'" ';
                                 }
                             ?>
                             >
@@ -268,10 +269,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="col-sm-6">
                             <label for="mileage" class="form-label">Mileage</label>
                             <input type="text" class="form-control" id="mileage" 
-                            name="engine" placeholder="Enter the mileage of Car..." 
+                            name="mileage" placeholder="Enter the mileage of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['mileage'].'" ';
+                                    echo 'value="'.$car[0]['car_mileage'].'" ';
                                 }
                             ?>
                             >
@@ -284,7 +285,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="model" placeholder="Enter the model of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['model'].'" ';
+                                    echo 'value="'.$car[0]['car_model'].'" ';
                                 }
                             ?>
                             >
@@ -293,11 +294,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="mfg_year" class="form-label">Manufacturing year</label>
-                            <input type="date" class="form-control" id="mfg_year" 
+                            <input type="text" class="form-control" id="mfg_year" 
                             name="mfg_year" placeholder="Enter the manufacturing year of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['mfg_year'].'" ';
+                                    echo 'value="'.$car[0]['car_mfg_year'].'" ';
                                 }
                             ?>
                             >
@@ -310,7 +311,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="odometer" placeholder="Enter the odometer of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['odometer'].'" ';
+                                    echo 'value="'.$car[0]['car_odometer'].'" ';
                                 }
                             ?>
                             >
@@ -323,22 +324,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="color" placeholder="Enter the color of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['color'].'" ';
+                                    echo 'value="'.$car[0]['car_color'].'" ';
                                 }
                             ?>
                             >
                         </div>
-
+                        <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="image" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="image" 
+                            name="image" placeholder="upload image of Car..." 
+                            <?php
+                                if(!empty($car)){
+                                    echo 'value="'.$car[0]['car_image'].'" ';
+                                }
+                            ?>
+                            >
+                            </div>
                         
 
                         
                     <div class="row mt-2">
                         <div class="col-sm-6">
                             <label for="description" class="form-label">Description</label><span class="text-body-secondary"> (optional)</span>
-                            <textarea class="form-control" id="description" name="car_description" 
+                            <textarea class="form-control" id="description" name="description" 
                             placeholder="More details like design, color, matrial, speciality, etc..."><?php
                                 if(!empty($car)){
-                                    echo $shoe[0]['car_description'];
+                                    echo $car[0]['car_description'];
                                 }
                             ?>
                             </textarea>
@@ -358,6 +370,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <br/>
       <br/>
       <?php
-      require('../layouts/footer.php');
+      require('layouts/footer.php');
     ?>
       
