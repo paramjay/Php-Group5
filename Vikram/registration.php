@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require('config/dbinit.php');
 require('function.php');
 
@@ -80,8 +80,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                     </select>
                 </div>
                 <div class="mb-3">
-                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                    <input type="password" class="form-control" id="exampleInputPassword1" name = "password">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" name = "password">
                 </div>
                 <div class="mb-3">
                     <label for="address" class="form-label">Address</label>

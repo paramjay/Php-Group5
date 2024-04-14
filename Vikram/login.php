@@ -20,16 +20,17 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
         if ($stmt) {
             // Fetch the user data
             $user_data = $stmt->fetch();
-            
+            echo "$user_password :  {$user_data['user_password']}";
             // Verify password
             if ($user_data && password_verify($user_password, $user_data['user_password'])) {
                 $_SESSION['user_id'] = $user_data['user_id'];
                 header("Location: index.php");
                 die;
+            }else{
+              echo "Invalid username or password!";
             }
-        }
+        } 
         
-        echo "Wrong username or password!";
     } else {
         echo "Wrong username or password!";
     }
