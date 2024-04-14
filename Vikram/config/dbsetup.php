@@ -62,7 +62,7 @@ try {
         invoice_id INT(11) AUTO_INCREMENT PRIMARY KEY,
         user_id INT(11),
         invoice_payment_mode VARCHAR(50),
-        invoice_tax DECIMAL(10, 2),
+        invoice_tax DECIMAL(10, 2) DEFAULT 0.13,
         invoice_total DECIMAL(10, 2),
         invoice_date DATE,
         FOREIGN KEY (user_id) REFERENCES tbl_users(user_id)
