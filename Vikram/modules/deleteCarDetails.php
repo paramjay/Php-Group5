@@ -1,6 +1,6 @@
 <?php 
-require ('configs/dbinit.php');
-$sql = "delete FROM shoes where shoe_id='".$_GET['id']."'";
+require ('config/dbinit.php');
+$sql = "delete FROM tbl_cars where car_id='".$_GET['id']."'";
 
 echo $sql;
 if($conn->exec($sql)){

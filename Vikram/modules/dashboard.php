@@ -1,14 +1,25 @@
+<?php 
+  require ('../config/dbinit.php');
+    
+  $sql = "SELECT * FROM tbl_cars ";
+
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();
+
+  $vikram_cars = $stmt->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>Dashboard</title>
     <?php
-      require('layouts/commonHead.php');
+      require('../layouts/commonHead.php');
     ?>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     <?php
-      require('layouts/header.php');
+      require('../layouts/header.php');
     ?>
     
     <section id="dashboard-banner" class="position-relative overflow-hidden bg-light-blue mb-5">
@@ -47,8 +58,30 @@
                 </tr>
                 </thead>
                 <tbody>
+                <?php for($i=0; $i<count($vikram_cars); $i++){?>
                 <tr>
-                    <th scope="row">1</th>
+                <th scope="row"><?php echo $i+1 ?></th>
+                    <td><?php echo $vikram_cars[$i][' car_id'] ?></td>
+                    <td><?php echo $vikram_cars[$i][' car_name'] ?></td>
+                    <td><?php echo '$'.$vikram_cars[$i]['car_price'] ?></td>
+                    <td><?php echo '$'.$vikram_cars[$i]['car_sale_price'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_brand'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_model'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_engine'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_description'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_color'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_image'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_type'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_capacity'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_body_style'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_mileage'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_mfg_year'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_odometer'] ?></td>
+                    <td><a class="btn btn-outline-primary" href="updateCarDetails.php?id=<?php echo $vikram_cars[$i]['car_id'] ?>">Edit</a>
+                        <button class="btn btn-outline-danger" onclick="deleteCar('<?php echo $vikram_cars[$i]['car_id'] ?>')">Delete</a></td>
+                </tr>
+                <?php } ?>
+                    <!-- <th scope="row">1</th>
                     <td>Ford</td>
                     <td>Mustang</td>
                     <td>GT</td>
@@ -100,7 +133,7 @@
                     <td>10,000 miles</td>
                     <td>Red</td>
                     <td><a href="#" class="btn btn-sm btn-outline-success">Edit</a><a href="#" class="btn btn-sm btn-outline-danger">Delete</a></td>
-                </tr>
+                </tr> -->
                 </tbody>
             </table>
         </div>
@@ -108,8 +141,36 @@
     </div>
     
     <?php
-      require('layouts/footer.php');
+      require('../layouts/footer.php');
     ?>
     
-  </body>
+    <script>
+function deleteCar(id) {
+    swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Shoe has been deleted.",
+        icon: "success",showConfirmButton: false,
+      });
+      setTimeout(function() { window.location.href='deleteCarDetails.php?id='+id;}, 1000);
+    }
+  });
+};
+function Reload(url){
+ 
+}
+   
+</script>
+</body>
 </html>
+
+ 
