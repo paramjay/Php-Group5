@@ -1,6 +1,8 @@
 <?php
  require('config/dbinit.php');
-
+ require('function.php');
+ $user_data = check_login($conn);
+ 
 // Check if car ID is passed in the URL
 if (isset($_GET['car_id'])) {
     // Assuming you have a PDO connection established
