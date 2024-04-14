@@ -33,6 +33,10 @@
     <title>Cart</title>
     <?php
       require('layouts/commonHead.php');
+      require('config/dbinit.php');
+      require('function.php');
+      $user_data = check_login($conn);
+
     ?>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
