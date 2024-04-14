@@ -156,8 +156,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ?>
     <br><br><br>
     <main>
-        <h2>Add/Edit Car Details</h2>
-        <div class="mt-4 mb-4">
+        <h2 style="margin-left: 80px;">Add/Edit Car Details</h2>
+        <div class="mt-4 mb-4" style="margin-left: 80px;" >
             <div class="card shadow rounded-4">
                 <div class="card-body p-4">
                     <form action="#" method="POST" >
@@ -203,7 +203,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ?>
                             >
                         </div>
-
+                        <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="price" class="form-label">Price</label>
                             <input type="number" class="form-control" id="car_price" name="car_price" placeholder="Enter the price of Car..."
@@ -214,7 +214,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ?>>
                         </div>
                     </div>
-
+                     
+                    <div class="row g-3">
                     <div class="col-sm-6">
                             <label for="price" class="form-label">Sale Price</label>
                             <input type="number" class="form-control" id="sale_price" name="sale_price" placeholder="Enter the sale price of Car..."

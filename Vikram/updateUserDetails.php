@@ -122,7 +122,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     ?>
 <br><br><br>
     <main>
-        <h2>Add/Edit User Details</h2>
+        <h2 style="margin-left: 80px;">Add/Edit User Details</h2>
+        <div style="margin-left: 80px;">
         <div class="mt-4 mb-4">
             <div class="card shadow rounded-4">
                 <div class="card-body p-4">
@@ -239,6 +240,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </form>
                 </div>
             </div>
+        </div>
         </div>
       </main>
       <br/>
