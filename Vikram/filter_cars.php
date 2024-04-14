@@ -5,7 +5,6 @@ require('config/dbinit.php');
 // Get brands, types, and price from AJAX POST request
 $selectedBrands = isset($_POST['brands']) ? $_POST['brands'] : [];
 $selectedTypes = isset($_POST['types']) ? $_POST['types'] : [];
-$selectedBodyTypes = isset($_POST['bodyTypes']) ? $_POST['bodyTypes'] : [];
 $priceRange = isset($_POST['price']) ? $_POST['price'] : '';
 
 // Build SQL query based on selected filters
@@ -19,12 +18,6 @@ if (!empty($selectedBrands)) {
 if (!empty($selectedTypes)) {
     $typesPlaceholder = implode(',', array_fill(0, count($selectedTypes), '?'));
     $sql .= " AND car_type IN ($typesPlaceholder)";
-}
-
-
-if (!empty($selectedBodyTypes)) {
-    $bodyTypesPlaceholder = implode(',', array_fill(0, count($selectedBodyTypes), '?'));
-    $sql .= " AND car_body_style IN ($bodyTypesPlaceholder)";
 }
 
 if (!empty($priceRange)) {
@@ -44,10 +37,6 @@ if (!empty($selectedTypes)) {
     $placeholders = array_merge($placeholders, $selectedTypes);
 }
 
-if (!empty($selectedBodyTypes)) {
-    $placeholders = array_merge($placeholders, $selectedBodyTypes);
-}
-
 if (!empty($priceRange)) {
     $placeholders[] = $priceRange;
 }
@@ -60,7 +49,7 @@ $cars = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($cars as $car) {
     echo '<div class="col-md-4">';
     echo '<div class="card card-body p-0">';
-    echo '<img src="images/cars/' . $car['car_image'] . '" alt="  ' . $car['car_brand'] . ' - ' . $car['car_name'] .' "  class="rounded-3" id="p' . $car['car_id'] . '">';
+    echo '<img src="images/cars/' . $car['car_image'] . '" class="rounded-3" id="p' . $car['car_id'] . '">';
     echo '<div class="p-4 pt-0">';
     echo '<h3 class="mt-3">' . $car['car_name'] . '</h3>';
     echo '<div class="d-flex justify-content-between">';

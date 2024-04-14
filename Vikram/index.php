@@ -1,3 +1,14 @@
+<?php 
+session_start();
+require('config/dbinit.php');
+require('function.php');
+
+
+	$user_data = check_login($con);
+
+?>
+
+
 <!DOCTYPE html>
 <html>
   <head>

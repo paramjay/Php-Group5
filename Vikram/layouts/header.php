@@ -104,12 +104,12 @@
                 <li class="nav-item">
                   <a class="nav-link me-4" href="addProduct.php">Add Product</a>
                 </li>
-                <li class="nav-item">
+                <!-- <li class="nav-item">
                   <a class="nav-link me-4" href="login.php">Login</a>
-                </li>
-                <li class="nav-item">
+                </li> -->
+                <!-- <li class="nav-item">
                   <a class="nav-link me-4" href="logout.php">Logout</a>
-                </li>
+                </li> -->
                 <li class="nav-item">
                   <a class="nav-link me-4" href="registration.php">Register</a>
                 </li>
