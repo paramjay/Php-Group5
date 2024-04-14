@@ -49,7 +49,7 @@ $cars = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($cars as $car) {
     echo '<div class="col-md-4">';
     echo '<div class="card card-body p-0">';
-    echo '<img src="images/cars/' . $car['car_image'] . '" class="rounded-3" id="p' . $car['car_id'] . '">';
+    echo '<img src="images/cars/' . $car['car_image'] . '" alt="  ' . $car['car_brand'] . ' - ' . $car['car_name'] .' "  class="rounded-3" id="p' . $car['car_id'] . '">';
     echo '<div class="p-4 pt-0">';
     echo '<h3 class="mt-3">' . $car['car_name'] . '</h3>';
     echo '<div class="d-flex justify-content-between">';

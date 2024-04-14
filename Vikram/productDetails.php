@@ -41,7 +41,7 @@ if (isset($_GET['car_id'])) {
     <div class="row m-4">
         <div class="col-md-4">
             <h4 class=""><?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?></h4>
-            <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="Car's image">
+            <img src="images/cars/<?php echo $car['car_image']; ?>" id="product-image" alt="<?php echo $car['car_brand']; ?> - <?php echo $car['car_name']; ?>">
         </div>
         <div class="col-md-8 p-4">
             <table class="table">
