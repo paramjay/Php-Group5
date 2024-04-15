@@ -1,23 +1,28 @@
 <?php
  require('config/dbinit.php');
  require('function.php');
+ require('car.php');
  // Instantiate the Database class
  $db = new Database();
 
  // Get the PDO connection object
  $conn = $db->getConnection();
  $user_data = check_login($conn);
- 
+ $carManager = new Car($db);
+
 // Check if car ID is passed in the URL
 if (isset($_GET['car_id'])) {
     // Assuming you have a PDO connection established
 
     // Prepare the SQL statement to fetch car details by ID
-    $sql = "SELECT * FROM tbl_cars WHERE car_id = :car_id";
-    $stmt = $conn->prepare($sql);
-    $stmt->bindParam(':car_id', $_GET['car_id']);
-    $stmt->execute();
-    $car = $stmt->fetch(PDO::FETCH_ASSOC);
+    // Get car details by ID
+    $car = $carManager->getCarDetailsById($_GET['car_id']);
+
+    // $sql = "SELECT * FROM tbl_cars WHERE car_id = :car_id";
+    // $stmt = $conn->prepare($sql);
+    // $stmt->bindParam(':car_id', $_GET['car_id']);
+    // $stmt->execute();
+    // $car = $stmt->fetch(PDO::FETCH_ASSOC);
 
     // Display car details if found
     if ($car) {

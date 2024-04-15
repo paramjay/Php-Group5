@@ -1,6 +1,7 @@
 <?php 
 require ('config/dbinit.php');
 require('function.php');
+require('user.php');
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -107,9 +108,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $msg.="</div>";
         if($id!=0){
-            $stmt = $conn->prepare("SELECT * FROM tbl_users WHERE user_id='".$id."'");
-            $stmt->execute();
-            $user = $stmt->fetchAll();
+            // $stmt = $conn->prepare("SELECT * FROM tbl_users WHERE user_id='".$id."'");
+            // $stmt->execute();
+            // $user = $stmt->fetchAll();
+            $userManager = new User($db);
+            $users = $userManager->getUserDetailsById($id);
         }
     }
   

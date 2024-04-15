@@ -1,17 +1,20 @@
 <?php 
   require ('config/dbinit.php');
+  require ('car.php');
     
     // Instantiate the Database class
     $db = new Database();
 
     // Get the PDO connection object
     $conn = $db->getConnection();
-  $sql = "SELECT * FROM tbl_cars ";
+    $carManager = new Car($db);
+  // $sql = "SELECT * FROM tbl_cars ";
 
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
+  // $stmt = $conn->prepare($sql);
+  // $stmt->execute();
 
-  $vikram_cars = $stmt->fetchAll();
+  // $vikram_cars = $stmt->fetchAll();
+  $vikram_cars = $carManager->getAllCars();
 ?>
 
 <!DOCTYPE html>

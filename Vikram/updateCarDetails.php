@@ -1,8 +1,7 @@
 <?php 
 require ('config/dbinit.php');
-
 require('function.php');
-
+require('car.php');
     // Instantiate the Database class
     $db = new Database();
 
@@ -189,9 +188,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $msg.="</div>";
         if($id!=0){
-            $stmt = $conn->prepare("SELECT * FROM tbl_cars WHERE car_id='".$id."'");
-            $stmt->execute();
-            $car = $stmt->fetchAll();
+            // $stmt = $conn->prepare("SELECT * FROM tbl_cars WHERE car_id='".$id."'");
+            // $stmt->execute();
+            $carManager = new Car($db);
+            $car = $carManager->getCarDetailsById($_GET['car_id']);
         }
     }
   

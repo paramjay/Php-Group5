@@ -1,13 +1,11 @@
 <?php 
 require ('config/dbinit.php');
-
+require('car.php');
 $db = new Database();
 $conn = $db->getConnection();
+$carManager = new Car($db);
 
-$sql = "delete FROM tbl_cars where car_id='".$_GET['id']."'";
-
-echo $sql;
-if($conn->exec($sql)){
+if($carManager->deleteCarDetailsById($_GET['id'])){
   header('Location: dashboard.php');
   exit();
 }else{

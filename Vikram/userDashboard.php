@@ -1,6 +1,6 @@
 <?php 
   require ('config/dbinit.php');
-    
+  require ('user.php');
   $db = new Database();
   $conn = $db->getConnection();
   
@@ -16,14 +16,15 @@
 
       require('function.php');
       $user_data = check_login($conn);
-      
-      $sql = "SELECT * FROM tbl_users where user_id != :user_id ";
+      $userManager = new User($db);
+      // $sql = "SELECT * FROM tbl_users where user_id != :user_id ";
 
-      $stmt = $conn->prepare($sql);
+      // $stmt = $conn->prepare($sql);
 
-      $stmt->bindParam(':user_id', $user_data['user_id']);
-      $stmt->execute();
-      $vikram_cars = $stmt->fetchAll();
+      // $stmt->bindParam(':user_id', $user_data['user_id']);
+      // $stmt->execute();
+      // $users = $stmt->fetchAll();
+      $users = $userManager->getAllUsers();
     ?>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
@@ -62,20 +63,20 @@
                 </tr>
                 </thead>
                 <tbody>
-                <?php for($i=0; $i<count($vikram_cars); $i++){?>
+                <?php for($i=0; $i<count($users); $i++){?>
                 <tr>
                 <th scope="row"><?php echo $i+1 ?></th>
                     
-                    <td><?php echo $vikram_cars[$i]['user_name'] ?></td>
-                    <td><?php echo $vikram_cars[$i]['user_email'] ?></td>
-                    <td><?php echo $vikram_cars[$i]['user_type'] ?></td>
-                    <td><?php echo $vikram_cars[$i]['user_address'] ?></td>
-                    <td><?php echo $vikram_cars[$i]['user_postal_code'] ?></td>
-                    <td><?php echo $vikram_cars[$i]['user_country'] ?></td>
+                    <td><?php echo $users[$i]['user_name'] ?></td>
+                    <td><?php echo $users[$i]['user_email'] ?></td>
+                    <td><?php echo $users[$i]['user_type'] ?></td>
+                    <td><?php echo $users[$i]['user_address'] ?></td>
+                    <td><?php echo $users[$i]['user_postal_code'] ?></td>
+                    <td><?php echo $users[$i]['user_country'] ?></td>
                    
                     
-                    <td><a class="btn btn-outline-primary" href="updateUserDetails.php?id=<?php echo $vikram_cars[$i]['user_id'] ?>">Edit</a>
-                        <button class="btn btn-outline-danger" onclick="deleteUser('<?php echo $vikram_cars[$i]['user_id'] ?>')">Delete</a></td>
+                    <td><a class="btn btn-outline-primary" href="updateUserDetails.php?id=<?php echo $users[$i]['user_id'] ?>">Edit</a>
+                        <button class="btn btn-outline-danger" onclick="deleteUser('<?php echo $users[$i]['user_id'] ?>')">Delete</a></td>
                 </tr>
                 <?php } ?>
                    

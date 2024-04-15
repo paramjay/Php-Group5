@@ -1,13 +1,11 @@
 <?php 
 require ('config/dbinit.php');
-
+require('user.php');
 $db = new Database();
 $conn = $db->getConnection();
+$userManager = new User($db);
 
-$sql = "delete FROM tbl_users where user_id='".$_GET['id']."'";
-
-echo $sql;
-if($conn->exec($sql)){
+if($userManager->deleteUserDetailsById($_GET['id'])){
   header('Location: userDashboard.php');
   exit();
 }else{
