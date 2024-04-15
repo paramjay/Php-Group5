@@ -390,7 +390,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         </div>
                         <div class="row g-3">
                             
-                            <?php if ($_GET['id'] == 0): ?>
+                            <?php if (empty($_GET['id'])): ?>
                             <div class="col-sm-6">
                                 <label for="image" class="form-label">Image</label>
                                 <input type="file" class="form-control" id="image" name="image">
