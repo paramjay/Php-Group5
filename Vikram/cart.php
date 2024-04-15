@@ -1,6 +1,11 @@
 <?php
  require('config/dbinit.php');
 
+    // Instantiate the Database class
+    $db = new Database();
+
+    // Get the PDO connection object
+    $conn = $db->getConnection();
  $car_items_data=null;
  $subtotal=0;
  if(isset($_COOKIE['cart_items'])) {
@@ -33,7 +38,6 @@
     <title>Cart</title>
     <?php
       require('layouts/commonHead.php');
-      require('config/dbinit.php');
       require('function.php');
       $user_data = check_login($conn);
 

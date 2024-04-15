@@ -1,6 +1,9 @@
 <?php
 // Include database initialization and functions
 require('config/dbinit.php');
+
+$db = new Database();
+$conn = $db->getConnection();
 require('function.php');
 
 // Define variables and initialize with empty values

@@ -1,6 +1,11 @@
 <?php 
 require ('config/dbinit.php');
+require('function.php');
 
+$db = new Database();
+$conn = $db->getConnection();
+
+$user_data = check_login($conn);
 
 function validateInput($input) {
     $validatedInput = trim($input);

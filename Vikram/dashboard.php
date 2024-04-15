@@ -1,6 +1,11 @@
 <?php 
   require ('config/dbinit.php');
     
+    // Instantiate the Database class
+    $db = new Database();
+
+    // Get the PDO connection object
+    $conn = $db->getConnection();
   $sql = "SELECT * FROM tbl_cars ";
 
   $stmt = $conn->prepare($sql);
@@ -16,7 +21,6 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
       require('layouts/commonHead.php');
-      require('config/dbinit.php');
       require('function.php');
       $user_data = check_login($conn);
 

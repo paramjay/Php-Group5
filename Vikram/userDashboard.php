@@ -1,12 +1,8 @@
 <?php 
   require ('config/dbinit.php');
     
-  $sql = "SELECT * FROM tbl_users ";
-
-  $stmt = $conn->prepare($sql);
-  $stmt->execute();
-
-  $vikram_cars = $stmt->fetchAll();
+  $db = new Database();
+  $conn = $db->getConnection();
   
 ?>
 
@@ -17,9 +13,17 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
       require('layouts/commonHead.php');
-      require('config/dbinit.php');
+
       require('function.php');
       $user_data = check_login($conn);
+      
+      $sql = "SELECT * FROM tbl_users where user_id != :user_id ";
+
+      $stmt = $conn->prepare($sql);
+
+      $stmt->bindParam(':user_id', $user_data['user_id']);
+      $stmt->execute();
+      $vikram_cars = $stmt->fetchAll();
     ?>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">

@@ -3,6 +3,11 @@ session_start();
 require('config/dbinit.php');
 require('function.php');
 
+    // Instantiate the Database class
+    $db = new Database();
+
+    // Get the PDO connection object
+    $conn = $db->getConnection();
 $user_email = $user_password = "";
 $email_err = $password_err = "";
 

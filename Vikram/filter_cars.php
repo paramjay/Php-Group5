@@ -2,6 +2,11 @@
 // Include database connection or initialization file
 require('config/dbinit.php');
 
+    // Instantiate the Database class
+    $db = new Database();
+
+    // Get the PDO connection object
+    $conn = $db->getConnection();
 // Get brands, types, and price from AJAX POST request
 $selectedBrands = isset($_POST['brands']) ? $_POST['brands'] : [];
 $selectedTypes = isset($_POST['types']) ? $_POST['types'] : [];

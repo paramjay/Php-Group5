@@ -1,6 +1,11 @@
 <?php
  require('config/dbinit.php');
  require('function.php');
+ // Instantiate the Database class
+ $db = new Database();
+
+ // Get the PDO connection object
+ $conn = $db->getConnection();
  $user_data = check_login($conn);
  
 // Check if car ID is passed in the URL

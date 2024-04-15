@@ -1,5 +1,11 @@
 <?php
  require('../config/dbinit.php');
+ 
+    // Instantiate the Database class
+    $db = new Database();
+
+    // Get the PDO connection object
+    $conn = $db->getConnection();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $invoice_payment_mode = $_POST['invoice_payment_mode'];
     $invoice_total = $_POST['invoice_total'];

@@ -1,7 +1,15 @@
 <?php 
 require ('config/dbinit.php');
 
+require('function.php');
 
+    // Instantiate the Database class
+    $db = new Database();
+
+    // Get the PDO connection object
+    $conn = $db->getConnection();
+    
+    $user_data = check_login($conn);
 function validateInput($input) {
     $validatedInput = trim($input);
     $validatedInput = stripslashes($validatedInput);
@@ -256,7 +264,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="car_brand" placeholder="Enter the Brand of Car..." 
                             <?php
                                 if(!empty($car)){
-                                    echo 'value="'.$car[0]['car_name'].'" ';
+                                    echo 'value="'.$car[0]['car_brand'].'" ';
                                 }
                             ?>
                             >
