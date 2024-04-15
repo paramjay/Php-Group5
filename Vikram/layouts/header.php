@@ -90,50 +90,50 @@
             <div class="offcanvas-body">
               <ul id="navbar" class="navbar-nav text-uppercase justify-content-end align-items-center flex-grow-1 pe-3">
                 <li class="nav-item">
-                  <a class="nav-link me-4 active" href="index.php">Home</a>
+                  <a class="nav-link me-4" href="index.php">Home</a>
                 </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="products.php">Cars</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="checkoutForm.php">Checkout</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="dashboard.php">Car-Dashboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="userDashboard.php">User-Dashboard</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="login.php">Login</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="logout.php">Logout</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link me-4" href="registration.php">Register</a>
-                </li>
-
-                <li class="nav-item">
-                  <div class="user-items ps-5">
-                    <ul class="d-flex justify-content-end list-unstyled">
-                      <li class="search-item pe-3">
-                        <a href="#" class="search-button">
-                          <svg class="search">
-                            <use xlink:href="#search"></use>
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a href="cart.php">
-                          <svg class="cart">
-                            <use xlink:href="#cart"></use>
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </div>
-                </li>
+                <?php
+                
+                if(!empty($user_data)) {
+                 if($user_data['user_type']=='Admin') {
+                  ?>
+                  <li class="nav-item">
+                    <a class="nav-link me-4" href="dashboard.php">Car-Dashboard</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-4" href="userDashboard.php">User-Dashboard</a>
+                  </li>
+                  <?php
+                 }
+                 if($user_data['user_type']=='Buyer') {
+                  ?>
+                   <li class="nav-item">
+                    <a class="nav-link me-4" href="products.php">Cars</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link me-4" href="cart.php">Cart</a>
+                  </li>
+                  
+                  <?php
+                 }
+                ?>
+                  <li class="nav-item">
+                    <a class="nav-link me-4" href="logout.php">Logout</a>
+                  </li>
+               <?php
+                 }else{
+                  ?>
+                  <li class="nav-item">
+                    <a class="nav-link me-4" href="login.php">Login</a>
+                  </li> 
+                  <li class="nav-item">
+                    <a class="nav-link me-4" href="registration.php">Register</a>
+                  </li>
+                  <?php
+                 }
+                ?>
+              
+                
               </ul>
             </div>
           </div>

@@ -88,8 +88,12 @@
                     <td><?php echo $vikram_cars[$i]['car_color'] ?></td>
                     <td><?php echo $vikram_cars[$i]['car_image'] ?></td>
                     
-                    <td><a class="btn btn-outline-primary" href="updateCarDetails.php?id=<?php echo $vikram_cars[$i]['car_id'] ?>">Edit</a>
-                        <button class="btn btn-outline-danger" onclick="deleteCar('<?php echo $vikram_cars[$i]['car_id'] ?>')">Delete</a></td>
+                    <td >
+                      <div class="d-flex">
+                        <a class="btn btn-sm btn-outline-primary m-1" href="updateCarDetails.php?id=<?php echo $vikram_cars[$i]['car_id'] ?>">Edit</a>
+                        <button class="btn btn-sm btn-outline-danger m-1" onclick="deleteCar('<?php echo $vikram_cars[$i]['car_id'] ?>')">Delete</a>
+                      </div>
+                    </td>
                 </tr>
                 <?php } ?>
                    
@@ -117,7 +121,7 @@ function deleteCar(id) {
     if (result.isConfirmed) {
       Swal.fire({
         title: "Deleted!",
-        text: "Shoe has been deleted.",
+        text: "Car details has been deleted.",
         icon: "success",showConfirmButton: false,
       });
       setTimeout(function() { window.location.href='deleteCarDetails.php?id='+id;}, 1000);

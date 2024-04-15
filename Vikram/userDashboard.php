@@ -99,7 +99,7 @@ function deleteUser(id) {
     if (result.isConfirmed) {
       Swal.fire({
         title: "Deleted!",
-        text: "user has been deleted.",
+        text: "User has been deleted.",
         icon: "success",showConfirmButton: false,
       });
       setTimeout(function() { window.location.href='deleteUserDetails.php?id='+id;}, 1000);

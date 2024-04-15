@@ -94,7 +94,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Check file size
-        if ($_FILES['image']['size'] > 500000) {
+        if ($_FILES['image']['size'] > 1000000) {
             $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>Sorry, your file is too large.</span></div>";
             $uploadOk = 0;
         }
