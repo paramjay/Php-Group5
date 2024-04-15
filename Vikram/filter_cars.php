@@ -1,12 +1,12 @@
 <?php
 // Include database connection or initialization file
-require('config/dbinit.php');
+require ('config/dbinit.php');
 
-    // Instantiate the Database class
-    $db = new Database();
+// Instantiate the Database class
+$db = new Database();
 
-    // Get the PDO connection object
-    $conn = $db->getConnection();
+// Get the PDO connection object
+$conn = $db->getConnection();
 // Get brands, types, and price from AJAX POST request
 $selectedBrands = isset($_POST['brands']) ? $_POST['brands'] : [];
 $selectedTypes = isset($_POST['types']) ? $_POST['types'] : [];
@@ -64,7 +64,7 @@ $cars = $stmt->fetchAll(PDO::FETCH_ASSOC);
 foreach ($cars as $car) {
     echo '<div class="col-md-4">';
     echo '<div class="card card-body p-0">';
-    echo '<img src="images/cars/' . $car['car_image'] . '" alt=" '. $car['car_name'] .' - '. $car['car_brand'] . ' " class="rounded-3" id="p' . $car['car_id'] . '">';
+    echo '<img src="images/cars/' . $car['car_image'] . '" alt=" ' . $car['car_name'] . ' - ' . $car['car_brand'] . ' " class="rounded-3" id="p' . $car['car_id'] . '">';
     echo '<div class="p-4 pt-0">';
     echo '<h3 class="mt-3">' . $car['car_name'] . '</h3>';
     echo '<div class="d-flex justify-content-between">';

@@ -129,7 +129,7 @@ try {
 
     $carsData = [
         ['Toyota', 'Camry', '2022', 'petrol', 25000, 23000, '2.5L V6', 'Sedan', 5, 30.5, 'A comfortable sedan for daily use.', 2022, 5000, 'Black', 'toyota-camry.jpg', 'Automatic', 'FWD', '200 lb-ft', '200 hp', 'Advanced safety features'],
-        ['Honda', 'Civic', '2023', 'petrol', 22000, 21000, '2.0L I4', 'Hatchback', 5, 35.5, 'A stylish hatchback with great fuel efficiency.', 2023, 3000, 'White', 'honda-civic.jpg', 'CVT', 'FWD', '180 lb-ft', '180 hp', 'Multiple airbags'],       
+        ['Honda', 'Civic', '2023', 'petrol', 22000, 21000, '2.0L I4', 'Hatchback', 5, 35.5, 'A stylish hatchback with great fuel efficiency.', 2023, 3000, 'White', 'honda-civic.jpg', 'CVT', 'FWD', '180 lb-ft', '180 hp', 'Multiple airbags'],
         ['Toyota', 'Corolla', '2022', 'petrol', 22000, 21000, '1.8L I4', 'Sedan', 5, 33.5, 'A reliable sedan with good fuel efficiency.', 2022, 4000, 'Silver', 'toyota-corolla.jpg', 'Automatic', 'FWD', '160 lb-ft', '140 hp', 'Lane departure warning system'],
         ['Ford', 'Mustang', '2023', 'petrol', 35000, 32000, '5.0L V8', 'Coupe', 4, 25.0, 'An iconic American muscle car.', 2023, 2000, 'Red', 'ford-mustang.jpg', 'Manual', 'RWD', '420 lb-ft', '460 hp', 'Brembo brakes'],
         ['Mercedes-Benz', 'GLE', '2022', 'diesel', 60000, 55000, '3.0L V6', 'SUV', 7, 28.0, 'A luxurious and spacious SUV.', 2022, 5000, 'Blue', 'mercedes-gle.jpg', 'Automatic', 'AWD', '450 lb-ft', '360 hp', 'Adaptive cruise control'],

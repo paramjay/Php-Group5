@@ -1,9 +1,10 @@
 <?php
- require('../config/dbinit.php');
+require ('../config/dbinit.php');
 $db = new Database();
 $conn = $db->getConnection();
 
-function validateInput($input) {
+function validateInput($input)
+{
     $validatedInput = trim($input);
     $validatedInput = stripslashes($validatedInput);
     $validatedInput = htmlspecialchars($validatedInput);
@@ -14,14 +15,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $invoice_total = validateInput($_POST['invoice_total']);
     $invoice_tax = validateInput($_POST['invoice_tax']);
     $user_id = validateInput($_POST['user_id']);
-    
+
     $currentDate = date("Y-m-d");
     echo $currentDate;
 
     $sql = "INSERT INTO tbl_invoice (user_id, invoice_payment_mode, invoice_tax, invoice_total, invoice_date)
     VALUES (:user_id, :invoice_payment_mode, :invoice_tax, :invoice_total, :invoice_date)";
     $stmt = $conn->prepare($sql);
-    
+
     $stmt->bindParam(':user_id', $user_id);
     $stmt->bindParam(':invoice_payment_mode', $invoice_payment_mode);
     $stmt->bindParam(':invoice_total', $invoice_total);
@@ -41,12 +42,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':car_quantity', validateInput($item['quantity']));
         $stmt->execute();
     }
-        
+
     setcookie("cart_items", "", time() - 3600, "/");// remove cookie that stores cart data
 
     $currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $HomePageURL = strstr($currentURL, "/utils", true);
-    header("Location: $HomePageURL"."/invoice.php?invoice_id=".$invoice_id);
+    header("Location: $HomePageURL" . "/invoice.php?invoice_id=" . $invoice_id);
     exit;
 
 }

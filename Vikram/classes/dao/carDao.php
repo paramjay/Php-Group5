@@ -1,23 +1,28 @@
 <?php
 require_once 'config/dbinit.php';
+require_once 'classes/model/car.php';
 
-class CarDAO {
+class CarDAO
+{
     private $db;
 
     // Constructor to initialize the Database object
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->db = $db;
     }
 
     // Method to get all cars from the database
-    public function getAllCars() {
+    public function getAllCars()
+    {
         $conn = $this->db->getConnection();
         $stmt = $conn->query("SELECT * FROM tbl_cars");
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Method to get car details by ID
-    public function getCarDetailsById($id) {
+    public function getCarDetailsById($id)
+    {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("SELECT * FROM tbl_cars WHERE car_id = :id");
         $stmt->bindParam(':id', $id);
@@ -26,7 +31,8 @@ class CarDAO {
     }
 
     // Method to update car details by ID
-    public function updateCarDetailsById($id, $newDetails) {
+    public function updateCarDetailsById($id, $newDetails)
+    {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("UPDATE tbl_cars SET car_brand = :brand, car_type = :type, car_body_style = :body_style WHERE car_id = :id");
         $stmt->bindParam(':id', $id);
@@ -37,7 +43,8 @@ class CarDAO {
     }
 
     // Method to delete car details by ID
-    public function deleteCarDetailsById($id) {
+    public function deleteCarDetailsById($id)
+    {
         $conn = $this->db->getConnection();
         $stmt = $conn->prepare("DELETE FROM tbl_cars WHERE car_id = :id");
         $stmt->bindParam(':id', $id);

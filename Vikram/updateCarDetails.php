@@ -2,20 +2,24 @@
 require ('config/dbinit.php');
 require('function.php');
 require('classes/dao/carDao.php');
-    $db = new Database();
-    $conn = $db->getConnection();
-    
-    $user_data = check_login($conn);
-    
-    $carManager = new CarDAO($db);
+
+$db = new Database();
+$conn = $db->getConnection();
+
+$user_data = check_login($conn);
+
+$carManager = new CarDAO($db);
+$msg = '';
+$errors = [];
+$car = null;
+
 function validateInput($input) {
     $validatedInput = trim($input);
     $validatedInput = stripslashes($validatedInput);
     $validatedInput = htmlspecialchars($validatedInput);
     return $validatedInput;
 }
-$msg='';
-$car;
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $id = validateInput($_POST['car_id']);
@@ -40,6 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $car_power = validateInput($_POST['car_power']);
     $car_safety = validateInput($_POST['car_safety']);
 
+    $id = validateInput($_POST['car_id']);
     $image = '';
      
    
@@ -155,6 +160,29 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (empty($errors)) {
+        $car = new Car(
+            $id,
+            $brand,
+            $name,
+            $model,
+            $car_type,
+            $price,
+            $sale_price,
+            $engine,
+            $style,
+            $capacity,
+            $mileage,
+            $description,
+            $mfg_year,
+            $odometer,
+            $color,
+            $image,
+            $car_transmission,
+            $car_driven_type,
+            $car_torque,
+            $car_power,
+            $car_safety
+        );
         $sql = "INSERT INTO tbl_cars (car_name, car_brand, car_price, car_sale_price, car_engine, car_body_style, car_capacity,
         car_mileage, car_model, car_mfg_year, car_description, car_odometer, car_color,car_type,
         car_transmission,car_driven_type,car_torque,car_power,car_safety";

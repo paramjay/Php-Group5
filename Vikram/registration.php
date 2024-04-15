@@ -1,10 +1,10 @@
 <?php
 // Include database initialization and functions
 require('config/dbinit.php');
-require ('user.php');
+require ('classes/dao/userDao.php');
 $db = new Database();
 $conn = $db->getConnection();
-$userManager = new User($db);
+$userManager = new UserDAO($db);
 require('function.php');
 
 // Define variables and initialize with empty values
