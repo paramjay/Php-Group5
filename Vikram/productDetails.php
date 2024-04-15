@@ -18,12 +18,6 @@ if (isset($_GET['car_id'])) {
     // Get car details by ID
     $car = $carManager->getCarDetailsById($_GET['car_id']);
 
-    // $sql = "SELECT * FROM tbl_cars WHERE car_id = :car_id";
-    // $stmt = $conn->prepare($sql);
-    // $stmt->bindParam(':car_id', $_GET['car_id']);
-    // $stmt->execute();
-    // $car = $stmt->fetch(PDO::FETCH_ASSOC);
-
     // Display car details if found
     if ($car) {
         // Output HTML with car details

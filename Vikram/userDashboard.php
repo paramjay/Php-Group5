@@ -17,13 +17,6 @@
       require('function.php');
       $user_data = check_login($conn);
       $userManager = new User($db);
-      // $sql = "SELECT * FROM tbl_users where user_id != :user_id ";
-
-      // $stmt = $conn->prepare($sql);
-
-      // $stmt->bindParam(':user_id', $user_data['user_id']);
-      // $stmt->execute();
-      // $users = $stmt->fetchAll();
       $users = $userManager->getAllUsers();
     ?>
   </head>

@@ -1,6 +1,7 @@
 <?php
 require('config/dbinit.php');
 require('function.php');
+require('user.php');
 // Instantiate the Database class
 $db = new Database();
 
@@ -11,12 +12,8 @@ $total_price=0;
 $user_info;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $total_price = $_POST['total_price']; 
-  $sql = "SELECT * FROM tbl_users WHERE user_id = :user_id";
-  $stmt = $conn->prepare($sql);
-  $user_id= $user_data['user_id'];
-  $stmt->bindParam(':user_id', $user_id);
-  $stmt->execute();
-  $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
+  $userManager = new User($db);
+  $user_info = $userManager->getUserDetailsById($user_data['user_id']);
 } 
 else{
   $currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
