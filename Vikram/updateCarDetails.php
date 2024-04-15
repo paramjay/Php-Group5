@@ -160,7 +160,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 
     if (empty($errors)) {
-        $car = new Car(
+        $NewCar = new Car(
             $id,
             $brand,
             $name,
@@ -232,7 +232,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $stmt->bindParam(':image', $image);
         }
         
-
         if ($stmt->execute()) {
             
             $msg.="<div class='bg-success-subtle d-grid p-3'>";

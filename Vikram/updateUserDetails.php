@@ -57,16 +57,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (empty($errors)) {
         if ($id != 0) {
-            $user = new User($id, $name, $email, null, $type, $address, $postal_code, $country);
+            $UpdatedUser = new User($id, $name, $email, null, $type, $address, $postal_code, $country);
             $userManager = new UserDAO($db);
-            $userManager->updateUserDetailsById($id, $user);
+            $userManager->updateUserDetailsById($id, $UpdatedUser);
             $msg = "<div class='bg-success-subtle d-grid p-3'><span class='text-success'>User details Updated successfully!</span></div>";
         } else {
             // Hash the password
             $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-            $user = new User(null, $name, $email, $hashed_password, $type, $address, $postal_code, $country);
+            $NewUser = new User(null, $name, $email, $hashed_password, $type, $address, $postal_code, $country);
             $userManager = new UserDAO($db);
-            $userManager->addUser($user);
+            $userManager->addUser($NewUser);
             $msg = "<div class='bg-success-subtle d-grid p-3'><span class='text-success'>User details added successfully!</span></div>";
         }
     } else {
