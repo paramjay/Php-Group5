@@ -26,9 +26,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $description = $_POST['description'];
     $odometer = validateInput($_POST['odometer']);
     $color = validateInput($_POST['color']);
-    $image = $_POST['image'];
-    
-    
+    $image = '';
+     
    
     if (empty($name)) {
         $errors[]= "Name is required.";
@@ -70,15 +69,72 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }else if (!is_numeric($sale_price) || $sale_price < 0) {
         $errors[] = "Sale Price Available must be a non-negative numeric value.";
     }
+
+    // Handle image upload
+    if (!empty($_FILES['image']['name'])) {
+        $image = $_FILES['image']['name'];
+        $target_dir = "images/cars/"; // Directory to store images
+        $target_file = $target_dir . basename($_FILES['image']['name']);
+        $uploadOk = 1;
+        $imageFileType = strtolower(pathinfo($target_file, PATHINFO_EXTENSION));
+
+        // Check if image file is a actual image or fake image
+        $check = getimagesize($_FILES['image']['tmp_name']);
+        if ($check !== false) {
+            $uploadOk = 1;
+        } else {
+            $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>File is not an image.</span></div>";
+            $uploadOk = 0;
+        }
+
+        // Check if file already exists
+        if (file_exists($target_file)) {
+            $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>Sorry, file already exists.</span></div>";
+            $uploadOk = 0;
+        }
+
+        // Check file size
+        if ($_FILES['image']['size'] > 500000) {
+            $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>Sorry, your file is too large.</span></div>";
+            $uploadOk = 0;
+        }
+
+        // Allow certain file formats
+        if ($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+            && $imageFileType != "gif") {
+            $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>Sorry, only JPG, JPEG, PNG & GIF files are allowed.</span></div>";
+            $uploadOk = 0;
+        }
+
+        // Check if $uploadOk is set to 0 by an error
+        if ($uploadOk == 0) {
+            $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>Sorry, your file was not uploaded.</span></div>";
+        // if everything is ok, try to upload file
+        } else {
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $target_file)) {
+                $msg .= "<div class='bg-success-subtle d-grid p-3'><span class='text-success'>The file ". htmlspecialchars(basename($_FILES['image']['name'])) . " has been uploaded.</span></div>";
+            } else {
+                $msg .= "<div class='bg-danger-subtle d-grid p-3'><span class='text-danger'>Sorry, there was an error uploading your file.</span></div>";
+            }
+        }
+    }
+
+
     if (empty($errors)) {
-    $sql = "INSERT INTO tbl_cars (car_name, car_brand, car_price,car_sale_price,car_engine,car_body_style,car_capacity,
-                                  car_mileage,car_model,car_mfg_year,car_description,car_odometer,car_color, car_image)
-        VALUES (:name, :brand, :price, :sale_price, :engine, :style, :capacity, :mileage, :mfg_year, :description, :odometer, :color,:image)";
-        
+        $sql = "INSERT INTO tbl_cars (car_name, car_brand, car_price, car_sale_price, car_engine, car_body_style, car_capacity,
+        car_mileage, car_model, car_mfg_year, car_description, car_odometer, car_color";
+        if (!empty($image)) {
+        $sql .= ", car_image";
+        }
+        $sql .= ") VALUES (:name, :brand, :price, :sale_price, :engine, :style, :capacity, :mileage, :model, :mfg_year, :description, :odometer, :color";
+        if (!empty($image)) {
+        $sql .= ", :image";
+        }
+        $sql .= ")";
         if($id!=0){
             $sql = "UPDATE tbl_cars SET car_name=:name, car_price=:price, car_sale_price=:sale_price, car_brand=:brand,
              car_engine=:engine, car_body_style=:style, car_capacity=:capacity, car_mileage=:mileage, car_model=:model,
-             car_mfg_year=:mfg_year, car_description=:description, car_odometer=:odometer, car_color=:color, car_image=:image
+             car_mfg_year=:mfg_year, car_description=:description, car_odometer=:odometer, car_color=:color
                 where car_id='".$id."'";
         }
 
@@ -97,7 +153,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $stmt->bindParam(':mfg_year', $mfg_year);
         $stmt->bindParam(':odometer', $odometer);
         $stmt->bindParam(':color', $color);
-        $stmt->bindParam(':image', $image);
+        if (!empty($image)) {
+            $stmt->bindParam(':image', $image);
+        }
         
 
         if ($stmt->execute()) {
@@ -160,7 +218,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <div class="mt-4 mb-4" style="margin-left: 80px;" >
             <div class="card shadow rounded-4">
                 <div class="card-body p-4">
-                    <form action="#" method="POST" >
+                    <form action="#" method="POST" enctype="multipart/form-data">
                     <?php
                         if(!empty($msg)){
                             echo '<div class="mb-3">';
@@ -331,23 +389,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             >
                         </div>
                         <div class="row g-3">
-                        <div class="col-sm-6">
-                            <label for="image" class="form-label">Image</label>
-                            <input type="file" class="form-control" id="image" 
-                            name="image" placeholder="upload image of Car..." 
-                            <?php
-                                if(!empty($car)){
-                                    echo 'value="'.$car[0]['car_image'].'" ';
-                                }
-                            ?>
-                            >
+                            
+                            <?php if ($_GET['id'] == 0): ?>
+                            <div class="col-sm-6">
+                                <label for="image" class="form-label">Image</label>
+                                <input type="file" class="form-control" id="image" name="image">
                             </div>
-                        
+                            <?php endif; ?>
 
                         
                     <div class="row mt-2">
                         <div class="col-sm-6">
-                            <label for="description" class="form-label">Description</label><span class="text-body-secondary"> (optional)</span>
+                            <label for="description" class="form-label">Description</label><span class="text-body-secondary"></span>
                             <textarea class="form-control" id="description" name="description" 
                             placeholder="More details like design, color, matrial, speciality, etc..."><?php
                                 if(!empty($car)){

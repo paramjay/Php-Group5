@@ -21,12 +21,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $country = validateInput($_POST['country']);
     
     
-   
+    
     if (empty($name)) {
         $errors[]= "Name is required.";
     }
     if (empty($email)) {
         $errors[]= "Email is required.";
+    }
+    if($id==0){
+    $password = validateInput($_POST['password']);
+    if (empty($password)) {
+        $errors[]= "Password is required.";
+    }
     }
 
     if (empty($type)) {
@@ -44,16 +50,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
     }
     if (empty($errors)) {
-    $sql = "INSERT INTO tbl_users (user_name, user_email, user_type, user_address, user_postal_code, user_country)
-        VALUES (:name, :email, :type, :address, :postal_code, :country)";
         
         if($id!=0){
             $sql = "UPDATE tbl_users SET user_name=:name, user_email=:email,  user_type=:type,
              user_address=:address, user_postal_code=:postal_code, user_country=:country
                 where user_id='".$id."'";
+             $stmt = $conn->prepare($sql);
+       
+        }else{
+        // Hash the password
+        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO tbl_users (user_name, user_email, user_password, user_type, user_address, user_postal_code, user_country)
+            VALUES (:name, :email, :password, :type, :address, :postal_code, :country)";
+             $stmt = $conn->prepare($sql);
+             $stmt->bindParam(':password', $hashed_password);
         }
 
-        $stmt = $conn->prepare($sql);
        
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':email', $email);
@@ -170,8 +183,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             ?>
                             >
                         </div>
+                        <?php if (empty($_GET['id'])): ?>
+                        <div class="col-sm-6">
+                            <label for="password" class="form-label">Password</label>
+                            <input type="password" class="form-control" id="password" 
+                            name="password" >
+                        </div>
+                        <?php endif; ?>
 
-                    <div class="row mt-2">
+                     <div class="row mt-2">
                         <div class="col-sm-6">
                             <label for="type" class="form-label">Type</label>
                             <select type="text" class="form-control" id="type" name="type" >
@@ -193,7 +213,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             </select>
                         </div>
                     
-                    <div class="row g-3">
+                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" 
