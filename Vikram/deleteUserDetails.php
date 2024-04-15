@@ -1,12 +1,14 @@
-<?php 
+<?php
 require ('config/dbinit.php');
-$sql = "delete FROM tbl_users where user_id='".$_GET['id']."'";
+require ('classes/dao/userDao.php');
+$db = new Database();
+$conn = $db->getConnection();
+$userManager = new UserDAO($db);
 
-echo $sql;
-if($conn->exec($sql)){
+if ($userManager->deleteUserDetailsById($_GET['id'])) {
   header('Location: userDashboard.php');
   exit();
-}else{
+} else {
   echo 'Error while deleting';
 }
 ?>

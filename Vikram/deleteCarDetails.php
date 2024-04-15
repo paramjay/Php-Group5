@@ -1,12 +1,14 @@
-<?php 
+<?php
 require ('config/dbinit.php');
-$sql = "delete FROM tbl_cars where car_id='".$_GET['id']."'";
+require ('classes/dao/carDao.php');
+$db = new Database();
+$conn = $db->getConnection();
+$carManager = new CarDAO($db);
 
-echo $sql;
-if($conn->exec($sql)){
+if ($carManager->deleteCarDetailsById($_GET['id'])) {
   header('Location: dashboard.php');
   exit();
-}else{
+} else {
   echo 'Error while deleting';
 }
 ?>

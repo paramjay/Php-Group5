@@ -1,5 +1,5 @@
 <?php
-include_once('lib/fpdf186/fpdf.php');
+include_once ('lib/fpdf186/fpdf.php');
 
 class PDF extends FPDF
 {
