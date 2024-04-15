@@ -63,8 +63,8 @@ require('layouts/header.php');
                         </div>
                         
                         <div class="form-check ">
-                        <input class="form-check-input" name="type" type="checkbox" value="Electic" id="Electic">
-                        <label class="form-check-label" for="Electic">Electic</label>
+                        <input class="form-check-input" name="type" type="checkbox" value="Electric" id="Electric">
+                        <label class="form-check-label" for="Electric">Electric</label>
                         </div>
 
                     </div>
@@ -90,8 +90,32 @@ require('layouts/header.php');
                         <input class="form-check-input" name="brand" type="checkbox" value="Telsa" id="Telsa">
                         <label class="form-check-label" for="Telsa">Telsa</label>
                         </div>
+</div>
+                    <div class="form-group mt-3">
+                        <h5 for="brand" class="mb-2">Body Type:</h5>
+
+                        <div class="form-check">
+                            <input class="form-check-input" name="body_type" type="checkbox" value="Hatchback" id="Hatchback">
+                            <label class="form-check-label" for="Hatchback">Hatchback</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" name="body_type" type="checkbox" value="Sedan" id="Sedan">
+                            <label class="form-check-label" for="Sedan">Sedan</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" name="body_type" type="checkbox" value="SUV" id="SUV">
+                            <label class="form-check-label" for="SUV">SUV</label>
+                        </div>
+
+                        <div class="form-check">
+                            <input class="form-check-input" name="body_type" type="checkbox" value="Pickup Truck" id="Pickup_Truck">
+                            <label class="form-check-label" for="Pickup_Truck">Pickup Truck</label>
+                        </div>
 
                     </div>
+                    
                     <div class="form-group mt-3">
                         <h5 for="priceRange" class="mb-2">Price: (<span id="priceValue"></span>)</h5>
                         <input type="range" class="form-control-range" min="20000" max="150000" id="priceRange">
@@ -142,13 +166,14 @@ require('layouts/footer.php');
     function filterCars() {
         const selectedBrands = Array.from(document.querySelectorAll('input[name="brand"]:checked')).map(checkbox => checkbox.value);
         const selectedTypes = Array.from(document.querySelectorAll('input[name="type"]:checked')).map(checkbox => checkbox.value);
+        const selectedBodyTypes = Array.from(document.querySelectorAll('input[name="body_type"]:checked')).map(checkbox => checkbox.value);
         const priceRange = document.getElementById('priceRange').value;
 
         // AJAX call to fetch filtered cars
         $.ajax({
             type: 'POST',
             url: 'filter_cars.php',
-            data: { brands: selectedBrands, types: selectedTypes, price: priceRange },
+            data: { brands: selectedBrands, types: selectedTypes, price: priceRange, bodyTypes: selectedBodyTypes },
             success: function(response) {
                 $('#product-list').html(response); // Update product list with filtered cars
             }
@@ -163,6 +188,11 @@ require('layouts/footer.php');
     document.querySelectorAll('input[name="type"]').forEach(checkbox => {
         checkbox.addEventListener('change', filterCars);
     });
+
+    document.querySelectorAll('input[name="body_type"]').forEach(checkbox => {
+        checkbox.addEventListener('change', filterCars);
+    });
+
 
 
     document.getElementById('priceRange').addEventListener('input', updatePriceValue);

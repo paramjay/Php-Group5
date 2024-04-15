@@ -10,6 +10,7 @@ require('config/dbinit.php');
 // Get brands, types, and price from AJAX POST request
 $selectedBrands = isset($_POST['brands']) ? $_POST['brands'] : [];
 $selectedTypes = isset($_POST['types']) ? $_POST['types'] : [];
+$selectedBodyTypes = isset($_POST['bodyTypes']) ? $_POST['bodyTypes'] : [];
 $priceRange = isset($_POST['price']) ? $_POST['price'] : '';
 
 // Build SQL query based on selected filters
@@ -23,6 +24,11 @@ if (!empty($selectedBrands)) {
 if (!empty($selectedTypes)) {
     $typesPlaceholder = implode(',', array_fill(0, count($selectedTypes), '?'));
     $sql .= " AND car_type IN ($typesPlaceholder)";
+}
+
+if (!empty($selectedBodyTypes)) {
+    $bodyTypesPlaceholder = implode(',', array_fill(0, count($selectedBodyTypes), '?'));
+    $sql .= " AND car_body_style IN ($bodyTypesPlaceholder)";
 }
 
 if (!empty($priceRange)) {
@@ -40,6 +46,10 @@ if (!empty($selectedBrands)) {
 
 if (!empty($selectedTypes)) {
     $placeholders = array_merge($placeholders, $selectedTypes);
+}
+
+if (!empty($selectedBodyTypes)) {
+    $placeholders = array_merge($placeholders, $selectedBodyTypes);
 }
 
 if (!empty($priceRange)) {

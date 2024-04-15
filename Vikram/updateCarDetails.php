@@ -526,7 +526,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
                     <div class="row  mt-3">
                         <div class="col-sm-6">
-                            <label for="car_driven_type" class="form-label">Fuel-Type</label>
+                            <label for="car_driven_type" class="form-label">Car Driven Type</label>
                             <select type="text" class="form-control" id="car_driven_type" name="car_driven_type" >
                                 <option value="">--- select ---</option>
                                 <option value="AWD" <?php
