@@ -1,17 +1,19 @@
 <?php
  require('../config/dbinit.php');
- 
-    // Instantiate the Database class
-    $db = new Database();
+$db = new Database();
+$conn = $db->getConnection();
 
-    // Get the PDO connection object
-    $conn = $db->getConnection();
+function validateInput($input) {
+    $validatedInput = trim($input);
+    $validatedInput = stripslashes($validatedInput);
+    $validatedInput = htmlspecialchars($validatedInput);
+    return $validatedInput;
+}
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $invoice_payment_mode = $_POST['invoice_payment_mode'];
-    $invoice_total = $_POST['invoice_total'];
-    $invoice_tax = $_POST['invoice_tax'];
-    $user_id = $_POST['user_id'];
-    // $invoice_total_due = $_POST['invoice_total_due'];
+    $invoice_payment_mode = validateInput($_POST['invoice_payment_mode']);
+    $invoice_total = validateInput($_POST['invoice_total']);
+    $invoice_tax = validateInput($_POST['invoice_tax']);
+    $user_id = validateInput($_POST['user_id']);
     
     $currentDate = date("Y-m-d");
     echo $currentDate;
@@ -35,8 +37,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         VALUES (:invoice_id, :car_id, :car_quantity)";
         $stmt = $conn->prepare($sql);
         $stmt->bindParam(':invoice_id', $invoice_id);
-        $stmt->bindParam(':car_id', $item['car_id']);
-        $stmt->bindParam(':car_quantity', $item['quantity']);
+        $stmt->bindParam(':car_id', validateInput($item['car_id']));
+        $stmt->bindParam(':car_quantity', validateInput($item['quantity']));
         $stmt->execute();
     }
         

@@ -10,15 +10,20 @@
 <html>
   <head>
     <title>User Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
     <?php
       require('layouts/commonHead.php');
 
       require('function.php');
       $user_data = check_login($conn);
       $userManager = new User($db);
-      $users = $userManager->getAllUsers();
+      $users = $userManager->getAllUsers($user_data['user_id']);
     ?>
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     <?php
@@ -42,24 +47,23 @@
 
     <div class="row m-4 ">
         <div class="col-md-12 table-div table-responsive"> 
-            <table class="table table-striped table-hover">
+            <table id="user_table" class="table table-striped table-hover">
                 <thead>
                 <tr>
-                    <th scope="col">User ID</th>
+                    <th scope="col">Sr No.</th>
                     <th scope="col">Name</th>
                     <th scope="col">Email</th>
                     <th scope="col">Type</th>
                     <th scope="col">Address</th>
                     <th scope="col">Postal Code</th>
                     <th scope="col">Country</th>
-                    
+                    <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
                 <?php for($i=0; $i<count($users); $i++){?>
                 <tr>
-                <th scope="row"><?php echo $i+1 ?></th>
-                    
+                    <th scope="row"><?php echo $i+1 ?></th>
                     <td><?php echo $users[$i]['user_name'] ?></td>
                     <td><?php echo $users[$i]['user_email'] ?></td>
                     <td><?php echo $users[$i]['user_type'] ?></td>
@@ -78,12 +82,14 @@
         </div>
    
     </div>
-    
+    <div class="row mb-4"></div>
     <?php
       require('layouts/footer.php');
     ?>
     
     <script>
+      
+      new DataTable('#user_table');
 function deleteUser(id) {
     swal.fire({
     title: "Are you sure?",

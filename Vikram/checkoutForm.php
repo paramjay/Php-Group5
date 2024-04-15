@@ -84,12 +84,6 @@ else{
                     <input type="text" class="form-control" id="zip" 
                     value="<?php echo $user_info['user_postal_code']; ?>" required readonly>
                 </div>
-                <div class="col-md-6 mb-3">
-                    <label for="phone" class="form-label">Phone Number</label>
-                    <input type="tel" class="form-control" id="phone" 
-                    value="<?php echo $user_info['user_name']; ?>" 
-                    placeholder="123-456-7890" required readonly>
-                </div>
             </div>
             <div class="row">
               <div class="col-md-6 mb-3">

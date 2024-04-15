@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <h2 class="display-2 pb-5 text-uppercase text-light">Login</h2>
                 <form class="card card-body fs-6 bg-opacity-75 bg-black text-white" method="post">
                     <div class="mb-3">
-                        <label for="user_email" class="form-label">Username/Email address</label>
+                        <label for="user_email" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="user_email" name="user_email" value="<?php echo htmlspecialchars($user_email); ?>">
                         <span class="text-danger"><?php echo $email_err; ?></span>
                     </div>

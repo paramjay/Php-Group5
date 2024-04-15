@@ -21,13 +21,19 @@
 <html>
   <head>
     <title>Dashboard</title>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
       require('layouts/commonHead.php');
       require('function.php');
       $user_data = check_login($conn);
-
     ?>
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.0.3/css/dataTables.bootstrap5.css" />
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/css/bootstrap.min.css" /> -->
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.0.3/js/dataTables.bootstrap5.js"></script>
+   
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
     <?php
@@ -51,8 +57,8 @@
 </section>
 
     <div class="row m-4 ">
-        <div class="col-md-12 table-div table-responsive"> 
-            <table class="table table-striped table-hover">
+        <div class="col-md-12 table-responsive"> 
+            <table id="cars_table" class="table table-striped table-hover">
                 <thead>
                 <tr>
                     <th scope="col">Car ID</th>
@@ -115,6 +121,7 @@
     ?>
     
     <script>
+      new DataTable('#cars_table');
 function deleteCar(id) {
     swal.fire({
     title: "Are you sure?",
@@ -135,9 +142,6 @@ function deleteCar(id) {
     }
   });
 };
-function Reload(url){
- 
-}
    
 </script>
 </body>

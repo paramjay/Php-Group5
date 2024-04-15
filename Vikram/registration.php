@@ -1,9 +1,10 @@
 <?php
 // Include database initialization and functions
 require('config/dbinit.php');
-
+require ('user.php');
 $db = new Database();
 $conn = $db->getConnection();
+$userManager = new User($db);
 require('function.php');
 
 // Define variables and initialize with empty values
@@ -21,7 +22,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Validate email
     if (empty(trim($_POST['email']))) {
         $email_err = "Please enter an email address.";
-    } else {
+    } elseif ($userManager->EmailChecker(trim($_POST['email']))) {
+        $email_err = "User already exist with this email. Enter another email address.";
+    }else{
         $user_email = trim($_POST['email']);
     }
 

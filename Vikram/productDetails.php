@@ -109,7 +109,7 @@ if (isset($_GET['car_id'])) {
         <input type="number" class="form-control m-2" name="quantity" id="quantity" value="1">
         <input type="hidden" class="form-control m-2" name="car_id" id="car_id" value="<?php echo $car['car_id']; ?>">
         <button class="btn btn-full btn-primary m-2" type="button" onclick="addToCart()"> Add to Cart</button>
-        <button class="btn btn-full btn-warning m-2" type="button" onclick="Buy()"> Buy </button>
+        <!-- <button class="btn btn-full btn-warning m-2" type="button" onclick="Buy()"> Buy </button> -->
         </form>
         <div class="row m-2">
             <table class="float-start">

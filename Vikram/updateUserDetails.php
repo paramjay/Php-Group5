@@ -17,7 +17,7 @@ function validateInput($input) {
 $msg='';
 $user;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    
+
     $id = validateInput($_POST['user_id']);
     $name = validateInput($_POST['name']);
     $email = validateInput($_POST['email']);
@@ -116,12 +116,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   else{
     if(!empty($_GET['id'])){
-    $sql = "SELECT * FROM tbl_users WHERE user_id='".$_GET['id']."'";
 
-    $stmt = $conn->prepare($sql);
-    $stmt->execute();
+      $userManager = new User($db);
+      $user = $userManager->getUserDetailsById($_GET['id']);
+    // $sql = "SELECT * FROM tbl_users WHERE user_id='".$_GET['id']."'";
 
-    $user = $stmt->fetchAll();
+    // $stmt = $conn->prepare($sql);
+    // $stmt->execute();
+
+    // $user = $stmt->fetchAll();
     }
   }
 ?>
@@ -157,37 +160,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="user_id" 
                             value="<?php
                                 if(!empty($user)){
-                                    echo $user[0]['user_id'];
+                                    echo $user['user_id'];
                                 }
                                 else{
                                     echo '0';
                                 }
                             ?>">
-                    <div class="row g-3">
+                    <div class="row">
                         <div class="col-sm-6">
                             <label for="name" class="form-label">Name</label>
                             <input type="text" class="form-control" id="name" 
                             name="name" placeholder="Enter the name of User..." 
                             <?php
                                 if(!empty($user)){
-                                    echo 'value="'.$user[0]['user_name'].'" ';
+                                    echo 'value="'.$user['user_name'].'" ';
                                 }
                             ?>
                             >
                         </div>
-
-                        <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="email" class="form-label">Email</label>
                             <input type="email" class="form-control" id="email" 
                             name="email" placeholder="Enter the Email of User..." 
                             <?php
                                 if(!empty($user)){
-                                    echo 'value="'.$user[0]['user_email'].'" ';
+                                    echo 'value="'.$user['user_email'].'" ';
                                 }
                             ?>
                             >
                         </div>
+                    </div>
+                        
+                    <div class="row mt-4">
                         <?php if (empty($_GET['id'])): ?>
                         <div class="col-sm-6">
                             <label for="password" class="form-label">Password</label>
@@ -195,68 +199,66 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                             name="password" >
                         </div>
                         <?php endif; ?>
-
-                     <div class="row mt-2">
                         <div class="col-sm-6">
                             <label for="type" class="form-label">Type</label>
                             <select type="text" class="form-control" id="type" name="type" >
                                 <option value="">--- select ---</option>
                                 <option value="Admin" <?php
                                 if(!empty($user)){
-                                    if($user[0]['user_type']=='Admin'){
+                                    if($user['user_type']=='Admin'){
                                         echo 'Selected="selected"';
                                     }
                                 }
                                 ?>>Admin</option>
                                 <option value="Buyer" <?php
                                 if(!empty($user)){
-                                    if($user[0]['user_type']=='Buyer'){
+                                    if($user['user_type']=='Buyer'){
                                         echo 'Selected="selected"';
                                     }
                                 }
                                 ?>>Buyer</option>
                             </select>
                         </div>
+                    </div>
                     
-                     <div class="row g-3">
+                     <div class="row mt-4">
                         <div class="col-sm-6">
                             <label for="address" class="form-label">Address</label>
                             <input type="text" class="form-control" id="address" 
                             name="address" placeholder="Enter the address of user..." 
                             <?php
                                 if(!empty($user)){
-                                    echo 'value="'.$user[0]['user_address'].'" ';
+                                    echo 'value="'.$user['user_address'].'" ';
                                 }
                             ?>
                             >
                         </div>
-
-                        <div class="row g-3">
                         <div class="col-sm-6">
                             <label for="postal_code" class="form-label">Postal Code</label>
                             <input type="text" class="form-control" id="postal_code" 
                             name="postal_code" placeholder="Enter the postal code of user..." 
                             <?php
                                 if(!empty($user)){
-                                    echo 'value="'.$user[0]['user_postal_code'].'" ';
+                                    echo 'value="'.$user['user_postal_code'].'" ';
                                 }
                             ?>
                             >
-                        </div>
+                    </div>
+                        
 
-                        <div class="row g-3">
+                    <div class="row  mt-4">
                         <div class="col-sm-6">
                             <label for="country" class="form-label">Country</label>
                             <input type="text" class="form-control" id="country" 
                             name="country" placeholder="Enter the country of user..." 
                             <?php
                                 if(!empty($user)){
-                                    echo 'value="'.$user[0]['user_country'].'" ';
+                                    echo 'value="'.$user['user_country'].'" ';
                                 }
                             ?>
                             >
                         </div>
-
+                    </div>
 
                     
                     <div class="text-center m-3">

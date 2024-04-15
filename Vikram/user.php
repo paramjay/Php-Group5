@@ -10,11 +10,25 @@ class User {
     }
 
     // Method to get all users from the database
-    public function getAllUsers() {
+    public function getAllUsers($id) {
         $conn = $this->db->getConnection();
-        $stmt = $conn->query("SELECT * FROM tbl_users");
+        $stmt = $conn->prepare("SELECT * FROM tbl_users WHERE user_id != :id");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+    public function EmailChecker($email) {
+        $conn = $this->db->getConnection();
+        $stmt = $conn->prepare("SELECT * FROM tbl_users WHERE user_email = :email");
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+        if ($stmt->rowCount() > 0) {
+            return true; // User exists
+        } else {
+            return false; // User does not exist
+        }
+    }
+    
 
     // Method to get user details by ID
     public function getUserDetailsById($id) {
@@ -25,6 +39,13 @@ class User {
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
+    
+    public function validateInput($input) {
+        $validatedInput = trim($input);
+        $validatedInput = stripslashes($validatedInput);
+        $validatedInput = htmlspecialchars($validatedInput);
+        return $validatedInput;
+    }
     // Method to update user details by ID
     public function updateUserDetailsById($id, $newDetails) {
         $conn = $this->db->getConnection();
