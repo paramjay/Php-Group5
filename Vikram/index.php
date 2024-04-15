@@ -145,7 +145,7 @@ require('function.php');
             <div class="col-lg-4 col-sm-12">
               <div class="card border-none me-3">
                 <div class="card-image">
-                  <img src="images/car (5).jpg" alt="" class="img-fluid">
+                  <img src="images/car (5).jpg" alt="car images" class="img-fluid" >
                 </div>
               </div>
               <div class="card-body text-uppercase">
@@ -161,7 +161,7 @@ require('function.php');
             <div class="col-lg-4 col-sm-12">
               <div class="card border-none me-3">
                 <div class="card-image">
-                  <img src="images/car (4).jpg" alt="" class="img-fluid">
+                  <img src="images/car (4).jpg" alt="cool car images" class="img-fluid">
                 </div>
               </div>
               <div class="card-body text-uppercase">
@@ -177,7 +177,7 @@ require('function.php');
             <div class="col-lg-4 col-sm-12">
               <div class="card border-none me-3">
                 <div class="card-image">
-                  <img src="images/car (3).jpg" alt="" class="img-fluid">
+                  <img src="images/car (3).jpg" alt="cars with new technology" class="img-fluid">
                 </div>
               </div>
               <div class="card-body text-uppercase">
