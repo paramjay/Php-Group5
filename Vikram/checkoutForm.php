@@ -1,7 +1,7 @@
 <?php
 require('config/dbinit.php');
 require('function.php');
-require('user.php');
+require('classes/dao/userDao.php');
 // Instantiate the Database class
 $db = new Database();
 
@@ -12,7 +12,7 @@ $total_price=0;
 $user_info;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $total_price = $_POST['total_price']; 
-  $userManager = new User($db);
+  $userManager = new UserDAO($db);
   $user_info = $userManager->getUserDetailsById($user_data['user_id']);
 } 
 else{

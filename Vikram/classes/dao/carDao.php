@@ -1,7 +1,7 @@
 <?php
 require_once 'config/dbinit.php';
 
-class Car {
+class CarDAO {
     private $db;
 
     // Constructor to initialize the Database object

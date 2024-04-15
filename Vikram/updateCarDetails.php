@@ -1,13 +1,13 @@
 <?php 
 require ('config/dbinit.php');
 require('function.php');
-require('car.php');
+require('classes/dao/carDao.php');
     $db = new Database();
     $conn = $db->getConnection();
     
     $user_data = check_login($conn);
     
-    $carManager = new Car($db);
+    $carManager = new CarDAO($db);
 function validateInput($input) {
     $validatedInput = trim($input);
     $validatedInput = stripslashes($validatedInput);

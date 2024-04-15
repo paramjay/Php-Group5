@@ -1,6 +1,6 @@
 <?php 
   require ('config/dbinit.php');
-  require ('user.php');
+  require ('classes/dao/userDao.php');
   $db = new Database();
   $conn = $db->getConnection();
   
@@ -16,7 +16,7 @@
 
       require('function.php');
       $user_data = check_login($conn);
-      $userManager = new User($db);
+      $userManager = new UserDAO($db);
       $users = $userManager->getAllUsers($user_data['user_id']);
     ?>
 

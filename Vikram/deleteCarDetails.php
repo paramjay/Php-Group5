@@ -1,9 +1,9 @@
 <?php 
 require ('config/dbinit.php');
-require('car.php');
+require('classes/dao/carDao.php');
 $db = new Database();
 $conn = $db->getConnection();
-$carManager = new Car($db);
+$carManager = new CarDAO($db);
 
 if($carManager->deleteCarDetailsById($_GET['id'])){
   header('Location: dashboard.php');

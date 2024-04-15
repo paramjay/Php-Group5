@@ -1,9 +1,9 @@
 <?php 
 require ('config/dbinit.php');
-require('user.php');
+require('classes/dao/userDao.php');
 $db = new Database();
 $conn = $db->getConnection();
-$userManager = new User($db);
+$userManager = new UserDAO($db);
 
 if($userManager->deleteUserDetailsById($_GET['id'])){
   header('Location: userDashboard.php');

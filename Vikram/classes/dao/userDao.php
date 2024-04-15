@@ -1,7 +1,7 @@
 <?php
 require_once 'config/dbinit.php';
 
-class User {
+class UserDAO {
     private $db;
 
     // Constructor to initialize the Database object

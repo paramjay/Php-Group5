@@ -1,13 +1,13 @@
 <?php 
   require ('config/dbinit.php');
-  require ('car.php');
+  require ('classes/dao/carDao.php');
     
     // Instantiate the Database class
     $db = new Database();
 
     // Get the PDO connection object
     $conn = $db->getConnection();
-    $carManager = new Car($db);
+    $carManager = new CarDAO($db);
   // $sql = "SELECT * FROM tbl_cars ";
 
   // $stmt = $conn->prepare($sql);

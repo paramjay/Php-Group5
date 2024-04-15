@@ -1,7 +1,7 @@
 <?php 
 require ('config/dbinit.php');
 require('function.php');
-require('user.php');
+require('classes/dao/userDao.php');
 
 $db = new Database();
 $conn = $db->getConnection();
@@ -108,7 +108,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         $msg.="</div>";
         if($id!=0){
-            $userManager = new User($db);
+            $userManager = new UserDAO($db);
             $users = $userManager->getUserDetailsById($id);
         }
     }
@@ -117,7 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   else{
     if(!empty($_GET['id'])){
 
-      $userManager = new User($db);
+      $userManager = new UserDAO($db);
       $user = $userManager->getUserDetailsById($_GET['id']);
     // $sql = "SELECT * FROM tbl_users WHERE user_id='".$_GET['id']."'";
 
