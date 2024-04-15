@@ -21,7 +21,7 @@ try {
         user_id INT(11) AUTO_INCREMENT PRIMARY KEY,
         user_name VARCHAR(50) NOT NULL,
         user_email VARCHAR(50) NOT NULL,
-        user_password VARCHAR(50) NOT NULL,
+        user_password VARCHAR(255) NOT NULL,
         user_type ENUM('Admin', 'Buyer') NOT NULL,
         user_address VARCHAR(255),
         user_postal_code VARCHAR(20),

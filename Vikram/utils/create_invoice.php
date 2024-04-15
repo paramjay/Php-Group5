@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $currentURL = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
     $HomePageURL = strstr($currentURL, "/utils", true);
-    header("Location: $HomePageURL");
+    header("Location: $HomePageURL"."/invoice.php?invoice_id=".$invoice_id);
     exit;
 
 }

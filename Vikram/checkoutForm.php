@@ -1,12 +1,14 @@
 <?php
 require('config/dbinit.php');
+require('function.php');
+$user_data = check_login($conn);
 $total_price=0;
 $user_info;
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $total_price = $_POST['total_price']; 
   $sql = "SELECT * FROM tbl_users WHERE user_id = :user_id";
   $stmt = $conn->prepare($sql);
-  $user_id="1";
+  $user_id= $user_data['user_id'];
   $stmt->bindParam(':user_id', $user_id);
   $stmt->execute();
   $user_info = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -23,10 +25,6 @@ else{
     <title>Checkout Form</title>
     <?php
       require('layouts/commonHead.php');
-      require('config/dbinit.php');
-      require('function.php');
-      $user_data = check_login($conn);
-
     ?>
   </head>
   <body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-root-margin="0px 0px -40%" data-bs-smooth-scroll="true" tabindex="0">
@@ -131,7 +129,7 @@ else{
             </div>
             <div class="text-center">
               <input type="hidden" name="user_id" value="1">
-              <button type="submit" class="btn btn-primary mt-3">Checkout</button>
+              <button type="submit" class="btn btn-primary mt-3">Generate Invoice</button>
             </div>
                 
         </form>
