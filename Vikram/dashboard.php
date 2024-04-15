@@ -1,7 +1,19 @@
+<?php 
+  require ('config/dbinit.php');
+    
+  $sql = "SELECT * FROM tbl_cars ";
+
+  $stmt = $conn->prepare($sql);
+  $stmt->execute();
+
+  $vikram_cars = $stmt->fetchAll();
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
     <title>Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <?php
       require('layouts/commonHead.php');
       require('config/dbinit.php');
@@ -26,6 +38,10 @@
       </div>
       </div>
     </section>
+    
+    <section>
+    <button type="button" class="btn btn-warning" style="margin-left: 80px;" onclick="window.location.href='updateCarDetails.php'">Add New Car Details</button>
+</section>
 
     <div class="row m-4 ">
         <div class="col-md-12 table-div table-responsive"> 
@@ -47,64 +63,36 @@
                     <th scope="col">Manufacturing Year</th>
                     <th scope="col">Odometer</th>
                     <th scope="col">Color</th>
+                    <th scope="col">Image</th>
                     <th scope="col">Action</th>
                 </tr>
                 </thead>
                 <tbody>
+                <?php for($i=0; $i<count($vikram_cars); $i++){?>
                 <tr>
-                    <th scope="row">1</th>
-                    <td>Ford</td>
-                    <td>Mustang</td>
-                    <td>GT</td>
-                    <td>Sports Car</td>
-                    <td>$40,000</td>
-                    <td>$35,000</td>
-                    <td>5.0L V8</td>
-                    <td>Coupe</td>
-                    <td>4</td>
-                    <td>25 mpg</td>
-                    <td>Powerful and stylish sports car</td>
-                    <td>2022</td>
-                    <td>10,000 miles</td>
-                    <td>Red</td>
-                    <td><a href="#" class="btn btn-sm btn-outline-info">Edit</a><a href="#" class="btn btn-sm btn-outline-danger">Delete</a></td>
+                <th scope="row"><?php echo $i+1 ?></th>
+                    
+                    <td><?php echo $vikram_cars[$i]['car_brand'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_name'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_model'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_type'] ?></td>
+                    <td><?php echo '$'.$vikram_cars[$i]['car_price'] ?></td>
+                    <td><?php echo '$'.$vikram_cars[$i]['car_sale_price'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_engine'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_body_style'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_capacity'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_mileage'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_description'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_mfg_year'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_odometer'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_color'] ?></td>
+                    <td><?php echo $vikram_cars[$i]['car_image'] ?></td>
+                    
+                    <td><a class="btn btn-outline-primary" href="updateCarDetails.php?id=<?php echo $vikram_cars[$i]['car_id'] ?>">Edit</a>
+                        <button class="btn btn-outline-danger" onclick="deleteCar('<?php echo $vikram_cars[$i]['car_id'] ?>')">Delete</a></td>
                 </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Ford</td>
-                    <td>Mustang</td>
-                    <td>GT</td>
-                    <td>Sports Car</td>
-                    <td>$40,000</td>
-                    <td>$35,000</td>
-                    <td>5.0L V8</td>
-                    <td>Coupe</td>
-                    <td>4</td>
-                    <td>25 mpg</td>
-                    <td>Powerful and stylish sports car</td>
-                    <td>2022</td>
-                    <td>10,000 miles</td>
-                    <td>Red</td>
-                    <td><a href="#" class="btn btn-sm btn-outline-success">Edit</a><a href="#" class="btn btn-sm btn-outline-danger">Delete</a></td>
-                </tr>
-                <tr>
-                    <th scope="row">1</th>
-                    <td>Ford</td>
-                    <td>Mustang</td>
-                    <td>GT</td>
-                    <td>Sports Car</td>
-                    <td>$40,000</td>
-                    <td>$35,000</td>
-                    <td>5.0L V8</td>
-                    <td>Coupe</td>
-                    <td>4</td>
-                    <td>25 mpg</td>
-                    <td>Powerful and stylish sports car</td>
-                    <td>2022</td>
-                    <td>10,000 miles</td>
-                    <td>Red</td>
-                    <td><a href="#" class="btn btn-sm btn-outline-success">Edit</a><a href="#" class="btn btn-sm btn-outline-danger">Delete</a></td>
-                </tr>
+                <?php } ?>
+                   
                 </tbody>
             </table>
         </div>
@@ -115,5 +103,33 @@
       require('layouts/footer.php');
     ?>
     
-  </body>
+    <script>
+function deleteCar(id) {
+    swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      Swal.fire({
+        title: "Deleted!",
+        text: "Shoe has been deleted.",
+        icon: "success",showConfirmButton: false,
+      });
+      setTimeout(function() { window.location.href='deleteCarDetails.php?id='+id;}, 1000);
+    }
+  });
+};
+function Reload(url){
+ 
+}
+   
+</script>
+</body>
 </html>
+
+ 
